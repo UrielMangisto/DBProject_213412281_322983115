@@ -31,10 +31,10 @@ DBProject_2281_3115 is a database project designed for the Surgery Room Departme
 
 ## ERD and DSD Diagrams
 **ERD Diagram:**  
-![ERD](ERD)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/0aa46089-ba9d-423f-9331-d6a7e8994b65)
 
 **DSD Diagram:**  
-![DSD](DSD)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/6e917abe-ac66-49df-bf68-6376cc9b411e)
 
 ## Design Decisions
 ### Design Choices:
