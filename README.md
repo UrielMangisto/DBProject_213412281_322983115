@@ -4,40 +4,72 @@ Contributors: Uriel Mangisto, [Other Contributors]
 ## System: Hospital Data Management System
 ### Selected Unit: Surgery Room Department
 
-## Introduction
-Our project is focused on managing the data of the surgery room department in a hospital. The main functionalities include:
+# DBProject_2281_3115
 
-- Storing doctor information
-- Storing nurse information
-- Managing surgery room details
+## Table of Contents
+- Title Page
+- Introduction
+- ERD and DSD Diagrams
+- Design Decisions
+- Create Table Commands
+- Data Insertion Methods
+- Backup and Restore
+
+## Title Page
+**Project Title:** DBProject_2281_3115  
+**Contributors:** Noam Benisho, Yair Lasry, Uriel Mangisto  
+**System:** Medical data management system  
+**Selected Unit:** Surgery Room Department
+
+## Introduction
+DBProject_2281_3115 is a database project designed for the Surgery Room Department. The project manages data related to surgeries, patients, surgeons, operating rooms, surgical instruments, and post-operative care. The main functionalities include:
+- Storing doctor and nurse information
 - Storing patient information
-- Documenting surgeries
-- Managing medicine used in surgeries
+- Scheduling and managing surgeries
+- Maintaining surgical records
+- Documenting medicines used during surgeries
 
 ## ERD and DSD Diagrams
+**ERD Diagram:**  
+![ERD](ERD)
 
-### ERD Diagram
-![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/151473ee-a9c9-4198-b148-8c7d17dbf6c0)
-
-### DSD Diagram
-![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/de1181c1-0b87-409c-b076-e8e96ab3058a)
+**DSD Diagram:**  
+![DSD](DSD)
 
 ## Design Decisions
-
 ### Design Choices:
 - **Normalization:** The database schema was normalized to the third normal form (3NF) to eliminate redundancy and ensure data integrity.
+  - **1NF (First Normal Form):** Ensures that the data in each table is atomic, meaning each column contains unique and indivisible values. For instance, in the `Patient` table, each patient has a single `FirstName` and `LastName` in separate columns.
+  - **2NF (Second Normal Form):** Ensures that the data is in 1NF and that all non-key attributes are fully dependent on the primary key. For example, in the `Surgery` table, `SurgeryDate`, `SurgeryType`, `RoomID`, `PatientID`, `DoctorID`, and `NurseID` are all dependent on the `SurgeryID`.
+  - **3NF (Third Normal Form):** Ensures that the data is in 2NF and that all attributes are only dependent on the primary key. This helps to eliminate transitive dependency. For instance, `Doctor` and `Patient` tables contain only information directly related to doctors and patients respectively, with no redundant data.
+  
 - **Indexing:** Indexes were added on primary and foreign keys to improve query performance.
+  - **Primary Keys:** Each table has a primary key to uniquely identify each record. For example, `DoctorID` in the `Doctor` table and `PatientID` in the `Patient` table.
+  - **Foreign Keys:** Foreign keys are used to link related tables and maintain referential integrity. For instance, `PatientID` in the `Surgery` table references the `Patient` table.
+  - **Indexes:** Indexes on primary and foreign keys improve the efficiency of operations like search, insert, update, and delete by reducing the time taken to locate records.
+  
 - **Data Types:** Appropriate data types were chosen for each field to optimize storage and performance.
+  - **VARCHAR2:** Used for variable-length strings such as names and specialties (e.g., `FirstName`, `LastName`, `Speciality`).
+  - **DATE:** Used for date values such as `StartDate`, `BirthDate`, and `SurgeryDate` to ensure proper date formatting and operations.
+  - **INT:** Used for numeric identifiers such as `DoctorID`, `PatientID`, `RoomID`, `MedicineID` for efficient storage and indexing.
 
 ### Justifications:
 - **Normalization:** By normalizing the schema, we reduce redundancy and prevent anomalies during data operations.
+  - **Redundancy Reduction:** Eliminates duplicate data which reduces the amount of data storage required and ensures consistency across the database.
+  - **Data Integrity:** Ensures that updates, deletions, and insertions are performed without introducing anomalies, maintaining the consistency of the database.
+
 - **Indexing:** Indexing significantly improves the speed of data retrieval operations, which is crucial for a responsive medical system.
+  - **Query Performance:** Indexes make search operations faster, which is vital for quickly retrieving patient and surgery records in a medical setting.
+  - **Efficiency:** Indexes help in efficiently executing joins between tables, especially in complex queries involving multiple tables.
+
 - **Data Types:** Choosing the right data types ensures efficient use of storage and enhances query performance.
+  - **Storage Optimization:** Ensures that data is stored in the most efficient format, reducing the overall storage requirements.
+  - **Performance:** Optimizes the performance of queries and data manipulation operations by ensuring that the data is stored in the most appropriate format.
 
 ## Create Table Commands
-
 ```sql
-CREATE TABLE Doctor (
+CREATE TABLE Doctor
+(
   DoctorID INT NOT NULL,
   FirstName VARCHAR2(30) NOT NULL,
   LastName VARCHAR2(30) NOT NULL,
@@ -47,7 +79,8 @@ CREATE TABLE Doctor (
   PRIMARY KEY (DoctorID)
 );
 
-CREATE TABLE Nurse (
+CREATE TABLE Nurse
+(
   NurseID INT NOT NULL,
   FirstName VARCHAR2(30) NOT NULL,
   LastName VARCHAR2(30) NOT NULL,
@@ -55,14 +88,16 @@ CREATE TABLE Nurse (
   PRIMARY KEY (NurseID)
 );
 
-CREATE TABLE Surgery_Room (
+CREATE TABLE Surgery_Room
+(
   RoomID INT NOT NULL,
   Location VARCHAR2(30) NOT NULL,
   RoomType VARCHAR2(30) NOT NULL,
   PRIMARY KEY (RoomID)
 );
 
-CREATE TABLE Patient (
+CREATE TABLE Patient
+(
   PatientID INT NOT NULL,
   FirstName VARCHAR2(30) NOT NULL,
   LastName VARCHAR2(30) NOT NULL,
@@ -70,14 +105,16 @@ CREATE TABLE Patient (
   PRIMARY KEY (PatientID)
 );
 
-CREATE TABLE Medicine (
+CREATE TABLE Medicine
+(
   MedicineID INT NOT NULL,
   MedicineName VARCHAR2(200) NOT NULL,
   Dosage INT NOT NULL,
   PRIMARY KEY (MedicineID)
 );
 
-CREATE TABLE Surgery (
+CREATE TABLE Surgery
+(
   SurgeryID INT NOT NULL,
   SurgeryDate DATE NOT NULL,
   SurgeryType VARCHAR2(30) NOT NULL,
@@ -92,10 +129,12 @@ CREATE TABLE Surgery (
   FOREIGN KEY (NurseID) REFERENCES Nurse(NurseID)
 );
 
-CREATE TABLE Used_In (
+CREATE TABLE Used_In
+(
   MedicineID INT NOT NULL,
   SurgeryID INT NOT NULL,
   PRIMARY KEY (MedicineID, SurgeryID),
   FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
+
