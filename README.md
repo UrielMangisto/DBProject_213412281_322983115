@@ -1,60 +1,101 @@
-# Database Project
+# Project Title: Surgery Room Management System
+Contributors: Uriel Mangisto, [Other Contributors]
 
-## Project Overview
+## System: Hospital Data Management System
+### Selected Unit: Surgery Room Department
 
-This project involves designing and implementing a database with at least six entities, each with a minimum of three attributes. The design includes two significant DATE attributes and follows 3NF normalization. The project includes creating ERD and DSD diagrams, SQL scripts for table creation, data insertion, and data retrieval, as well as backing up the database.
+## Introduction
+Our project is focused on managing the data of the surgery room department in a hospital. The main functionalities include:
 
-## Folder Structure
+- Storing doctor information
+- Storing nurse information
+- Managing surgery room details
+- Storing patient information
+- Documenting surgeries
+- Managing medicine used in surgeries
 
-- `ERDPlus Files`: Contains the ERD and DSD diagrams.
-- `SQL Scripts`: Contains the SQL scripts for creating, dropping, inserting, and selecting tables.
-- `Data Generation Methods`: Contains subfolders for different data generation methods used.
+## ERD and DSD Diagrams
 
-## SQL Scripts
+### ERD Diagram
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/151473ee-a9c9-4198-b148-8c7d17dbf6c0)
 
-- `createTables.sql`: Script to create all the tables.
-- `dropTables.sql`: Script to drop all the tables in the correct order.
-- `insertTables.sql`: Script to insert data into the tables.
-- `selectAll.sql`: Script to select all data from the tables.
+### DSD Diagram
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/de1181c1-0b87-409c-b076-e8e96ab3058a)
 
-## Data Generation Methods
+## Design Decisions
 
-We used three methods to populate the database with data:
+### Design Choices:
+- **Normalization:** The database schema was normalized to the third normal form (3NF) to eliminate redundancy and ensure data integrity.
+- **Indexing:** Indexes were added on primary and foreign keys to improve query performance.
+- **Data Types:** Appropriate data types were chosen for each field to optimize storage and performance.
 
-1. **Data Generator**:
-   - Files are in the `DGFiles` folder.
-2. **Mockaroo**:
-   - Files are in the `mockarooFiles` folder.
-3. **Generatedata**:
-   - Files are in the `generatedataFiles` folder.
+### Justifications:
+- **Normalization:** By normalizing the schema, we reduce redundancy and prevent anomalies during data operations.
+- **Indexing:** Indexing significantly improves the speed of data retrieval operations, which is crucial for a responsive medical system.
+- **Data Types:** Choosing the right data types ensures efficient use of storage and enhances query performance.
 
-Each method's folder contains the necessary configuration and data files.
+## Create Table Commands
 
-## Database Backup
+```sql
+CREATE TABLE Doctor (
+  DoctorID INT NOT NULL,
+  FirstName VARCHAR2(30) NOT NULL,
+  LastName VARCHAR2(30) NOT NULL,
+  Speciality VARCHAR2(30) NOT NULL,
+  StartDate DATE NOT NULL,
+  Position VARCHAR2(30) NOT NULL,
+  PRIMARY KEY (DoctorID)
+);
 
-- The backup of the database is saved as `backup.sql`. It includes `CREATE TABLE` commands and insert statements for all data.
+CREATE TABLE Nurse (
+  NurseID INT NOT NULL,
+  FirstName VARCHAR2(30) NOT NULL,
+  LastName VARCHAR2(30) NOT NULL,
+  StartDate DATE NOT NULL,
+  PRIMARY KEY (NurseID)
+);
 
-## How to Use
+CREATE TABLE Surgery_Room (
+  RoomID INT NOT NULL,
+  Location VARCHAR2(30) NOT NULL,
+  RoomType VARCHAR2(30) NOT NULL,
+  PRIMARY KEY (RoomID)
+);
 
-1. **Create Tables**: Run `createTables.sql` to create the database tables.
-2. **Insert Data**: Use `insertTables.sql` to populate the tables with data.
-3. **Select Data**: Run `selectAll.sql` to retrieve all data from the tables.
-4. **Drop Tables**: Use `dropTables.sql` to drop the tables when needed.
+CREATE TABLE Patient (
+  PatientID INT NOT NULL,
+  FirstName VARCHAR2(30) NOT NULL,
+  LastName VARCHAR2(30) NOT NULL,
+  BirthDate DATE NOT NULL,
+  PRIMARY KEY (PatientID)
+);
 
-## ERD and DSD
+CREATE TABLE Medicine (
+  MedicineID INT NOT NULL,
+  MedicineName VARCHAR2(200) NOT NULL,
+  Dosage INT NOT NULL,
+  PRIMARY KEY (MedicineID)
+);
 
-- The ERD and DSD diagrams are available in the `ERDPlus Files` folder.
+CREATE TABLE Surgery (
+  SurgeryID INT NOT NULL,
+  SurgeryDate DATE NOT NULL,
+  SurgeryType VARCHAR2(30) NOT NULL,
+  RoomID INT NOT NULL,
+  PatientID INT NOT NULL,
+  DoctorID INT NOT NULL,
+  NurseID INT NOT NULL,
+  PRIMARY KEY (SurgeryID),
+  FOREIGN KEY (RoomID) REFERENCES Surgery_Room(RoomID),
+  FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
+  FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
+  FOREIGN KEY (NurseID) REFERENCES Nurse(NurseID)
+);
 
-## Project Report
-
-The project report includes detailed information about the design decisions, normalization process, and data generation methods. It is available as `README.md` or `project_report.pdf`.
-
-## Contributors
-
-- Uriel Mangisto
-- [Other contributors]
-
-## Contact
-
-For any questions or suggestions, please contact [your email].
-
+CREATE TABLE Used_In (
+  MedicineID INT NOT NULL,
+  SurgeryID INT NOT NULL,
+  PRIMARY KEY (MedicineID, SurgeryID),
+  FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
+  FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
+);
