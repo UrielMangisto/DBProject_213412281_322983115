@@ -1,3 +1,141 @@
+﻿prompt PL/SQL Developer Export Tables for user C##URIEL@XE
+prompt Created by o1029 on יום שלישי 28 מאי 2024
+set feedback off
+set define off
+
+prompt Dropping DOCTOR...
+drop table DOCTOR cascade constraints;
+prompt Dropping MEDICINE...
+drop table MEDICINE cascade constraints;
+prompt Dropping NURSE...
+drop table NURSE cascade constraints;
+prompt Dropping PATIENT...
+drop table PATIENT cascade constraints;
+prompt Dropping SURGERY_ROOM...
+drop table SURGERY_ROOM cascade constraints;
+prompt Dropping SURGERY...
+drop table SURGERY cascade constraints;
+prompt Dropping USED_IN...
+drop table USED_IN cascade constraints;
+prompt Creating DOCTOR...
+create table DOCTOR
+(
+  doctorid   INTEGER not null,
+  firstname  VARCHAR2(30) not null,
+  lastname   VARCHAR2(30) not null,
+  speciality VARCHAR2(30) not null,
+  startdate  DATE not null,
+  position   VARCHAR2(30) not null
+);
+alter table DOCTOR
+  add primary key (DOCTORID);
+
+prompt Creating MEDICINE...
+create table MEDICINE
+(
+  medicineid   INTEGER not null,
+  medicinename VARCHAR2(200) not null,
+  dosage       INTEGER not null
+);
+alter table MEDICINE
+  add primary key (MEDICINEID);
+
+prompt Creating NURSE...
+create table NURSE
+(
+  nurseid   INTEGER not null,
+  firstname VARCHAR2(30) not null,
+  lastname  VARCHAR2(30) not null,
+  startdate DATE not null
+);
+alter table NURSE
+  add primary key (NURSEID);
+
+prompt Creating PATIENT...
+create table PATIENT
+(
+  patientid INTEGER not null,
+  firstname VARCHAR2(30) not null,
+  lastname  VARCHAR2(30) not null,
+  birthdate DATE not null
+);
+alter table PATIENT
+  add primary key (PATIENTID);
+
+prompt Creating SURGERY_ROOM...
+create table SURGERY_ROOM
+(
+  roomid   INTEGER not null,
+  location VARCHAR2(30) not null,
+  roomtype VARCHAR2(30) not null
+);
+alter table SURGERY_ROOM
+  add primary key (ROOMID);
+
+prompt Creating SURGERY...
+create table SURGERY
+(
+  surgeryid   INTEGER not null,
+  surgerydate DATE not null,
+  surgerytype VARCHAR2(30) not null,
+  roomid      INTEGER not null,
+  patientid   INTEGER not null,
+  doctorid    INTEGER not null,
+  nurseid     INTEGER not null
+);
+alter table SURGERY
+  add primary key (SURGERYID);
+alter table SURGERY
+  add foreign key (ROOMID)
+  references SURGERY_ROOM (ROOMID);
+alter table SURGERY
+  add foreign key (PATIENTID)
+  references PATIENT (PATIENTID);
+alter table SURGERY
+  add foreign key (DOCTORID)
+  references DOCTOR (DOCTORID);
+alter table SURGERY
+  add foreign key (NURSEID)
+  references NURSE (NURSEID);
+
+prompt Creating USED_IN...
+create table USED_IN
+(
+  medicineid INTEGER not null,
+  surgeryid  INTEGER not null
+);
+alter table USED_IN
+  add primary key (MEDICINEID, SURGERYID);
+alter table USED_IN
+  add foreign key (MEDICINEID)
+  references MEDICINE (MEDICINEID);
+alter table USED_IN
+  add foreign key (SURGERYID)
+  references SURGERY (SURGERYID);
+
+prompt Disabling triggers for DOCTOR...
+alter table DOCTOR disable all triggers;
+prompt Disabling triggers for MEDICINE...
+alter table MEDICINE disable all triggers;
+prompt Disabling triggers for NURSE...
+alter table NURSE disable all triggers;
+prompt Disabling triggers for PATIENT...
+alter table PATIENT disable all triggers;
+prompt Disabling triggers for SURGERY_ROOM...
+alter table SURGERY_ROOM disable all triggers;
+prompt Disabling triggers for SURGERY...
+alter table SURGERY disable all triggers;
+prompt Disabling triggers for USED_IN...
+alter table USED_IN disable all triggers;
+prompt Disabling foreign key constraints for SURGERY...
+alter table SURGERY disable constraint SYS_C008760;
+alter table SURGERY disable constraint SYS_C008761;
+alter table SURGERY disable constraint SYS_C008762;
+alter table SURGERY disable constraint SYS_C008763;
+prompt Disabling foreign key constraints for USED_IN...
+alter table USED_IN disable constraint SYS_C008772;
+alter table USED_IN disable constraint SYS_C008773;
+prompt Loading DOCTOR...
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (1, 'Sol', 'Wythill', 'Oncology', to_date('23-05-1993', 'dd-mm-yyyy'), 'Junior');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
@@ -198,6 +336,8 @@ insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, positi
 values (99, 'Upton', 'Scard', 'Cardiology', to_date('17-03-1994', 'dd-mm-yyyy'), 'Fellow');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (100, 'Reese', 'Imlaw', 'Pediatrics', to_date('10-11-1986', 'dd-mm-yyyy'), 'Consultant');
+commit;
+prompt 100 records committed...
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (101, 'Geneva', 'Bonanno', 'Dermatology', to_date('27-09-1988', 'dd-mm-yyyy'), 'Senior');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
@@ -398,6 +538,8 @@ insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, positi
 values (199, 'Olivette', 'Swiggs', 'Dermatology', to_date('14-12-1999', 'dd-mm-yyyy'), 'Fellow');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (200, 'Amalia', 'Klempke', 'Neurology', to_date('17-08-1997', 'dd-mm-yyyy'), 'Junior');
+commit;
+prompt 200 records committed...
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (201, 'Humberto', 'Pym', 'Psychiatry', to_date('13-08-1992', 'dd-mm-yyyy'), 'Fellow');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
@@ -598,6 +740,8 @@ insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, positi
 values (299, 'Leilah', 'Ledekker', 'Dermatology', to_date('13-01-1994', 'dd-mm-yyyy'), 'Senior');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (300, 'Catherin', 'Merlin', 'Neurology', to_date('11-06-1986', 'dd-mm-yyyy'), 'Fellow');
+commit;
+prompt 300 records committed...
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (301, 'Pat', 'O''Murtagh', 'Oncology', to_date('13-05-1992', 'dd-mm-yyyy'), 'Fellow');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
@@ -798,6 +942,9 @@ insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, positi
 values (399, 'Fonzie', 'Randales', 'Pediatrics', to_date('24-10-1995', 'dd-mm-yyyy'), 'Junior');
 insert into DOCTOR (doctorid, firstname, lastname, speciality, startdate, position)
 values (400, 'Quinn', 'Glencrosche', 'Neurology', to_date('03-07-1985', 'dd-mm-yyyy'), 'Consultant');
+commit;
+prompt 400 records loaded
+prompt Loading MEDICINE...
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (1, 'Abilify', 239);
 insert into MEDICINE (medicineid, medicinename, dosage)
@@ -998,6 +1145,8 @@ insert into MEDICINE (medicineid, medicinename, dosage)
 values (102, 'Symbicort', 45);
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (103, 'Diazepam', 149);
+commit;
+prompt 100 records committed...
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (104, 'Cialis', 126);
 insert into MEDICINE (medicineid, medicinename, dosage)
@@ -1198,6 +1347,8 @@ insert into MEDICINE (medicineid, medicinename, dosage)
 values (202, 'Nexium', 235);
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (203, 'Amoxicillin Trihydrate/Potassium Clavulanate', 63);
+commit;
+prompt 200 records committed...
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (204, 'Folic Acid', 333);
 insert into MEDICINE (medicineid, medicinename, dosage)
@@ -1398,6 +1549,8 @@ insert into MEDICINE (medicineid, medicinename, dosage)
 values (305, 'Alprazolam', 200);
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (306, 'Namenda', 19);
+commit;
+prompt 300 records committed...
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (307, 'Methylprednisolone', 252);
 insert into MEDICINE (medicineid, medicinename, dosage)
@@ -1598,6 +1751,8 @@ insert into MEDICINE (medicineid, medicinename, dosage)
 values (406, 'Zetia', 122);
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (407, 'Oxycontin', 62);
+commit;
+prompt 400 records committed...
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (408, 'Naproxen', 227);
 insert into MEDICINE (medicineid, medicinename, dosage)
@@ -1784,6 +1939,9 @@ insert into MEDICINE (medicineid, medicinename, dosage)
 values (499, 'Risperidone', 57);
 insert into MEDICINE (medicineid, medicinename, dosage)
 values (500, 'LevothyroxineSodium', 163);
+commit;
+prompt 493 records loaded
+prompt Loading NURSE...
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (1, 'Cherry', 'Grant', to_date('28-08-1999', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
@@ -1984,6 +2142,8 @@ insert into NURSE (nurseid, firstname, lastname, startdate)
 values (99, 'Carlene', 'Torn', to_date('18-03-1994', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (100, 'Colin', 'Gano', to_date('20-12-1999', 'dd-mm-yyyy'));
+commit;
+prompt 100 records committed...
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (101, 'Roger', 'Costa', to_date('20-09-1986', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
@@ -2184,6 +2344,8 @@ insert into NURSE (nurseid, firstname, lastname, startdate)
 values (199, 'Rory', 'Phifer', to_date('15-09-1990', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (200, 'Oro', 'Flemyng', to_date('13-01-1983', 'dd-mm-yyyy'));
+commit;
+prompt 200 records committed...
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (201, 'Greg', 'Imbruglia', to_date('18-06-1980', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
@@ -2384,6 +2546,8 @@ insert into NURSE (nurseid, firstname, lastname, startdate)
 values (299, 'Sonny', 'Sevigny', to_date('28-10-1992', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (300, 'Marley', 'McLachlan', to_date('30-09-1995', 'dd-mm-yyyy'));
+commit;
+prompt 300 records committed...
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (301, 'Mel', 'Heatherly', to_date('04-09-1984', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
@@ -2584,6 +2748,9 @@ insert into NURSE (nurseid, firstname, lastname, startdate)
 values (399, 'Willem', 'Lennox', to_date('11-12-1986', 'dd-mm-yyyy'));
 insert into NURSE (nurseid, firstname, lastname, startdate)
 values (400, 'Chely', 'Harrison', to_date('16-09-1993', 'dd-mm-yyyy'));
+commit;
+prompt 400 records loaded
+prompt Loading PATIENT...
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (1, 'Channing', 'Craig', to_date('10-04-1949', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
@@ -2784,6 +2951,8 @@ insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (99, 'Brianna', 'Bell', to_date('11-04-1967', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (100, 'Violet', 'Hughes', to_date('14-01-1968', 'dd-mm-yyyy'));
+commit;
+prompt 100 records committed...
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (101, 'Dorothy', 'Wallace', to_date('25-05-1975', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
@@ -2984,6 +3153,8 @@ insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (199, 'Angelica', 'Benjamin', to_date('08-12-1979', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (200, 'Audra', 'Gamble', to_date('23-03-1976', 'dd-mm-yyyy'));
+commit;
+prompt 200 records committed...
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (201, 'Ima', 'Baker', to_date('08-12-1985', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
@@ -3184,6 +3355,8 @@ insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (299, 'Harlan', 'Guerra', to_date('15-04-1994', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (300, 'Nathan', 'Moody', to_date('03-07-1949', 'dd-mm-yyyy'));
+commit;
+prompt 300 records committed...
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (301, 'Logan', 'Berg', to_date('23-06-1992', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
@@ -3384,6 +3557,9 @@ insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (399, 'Forrest', 'Williamson', to_date('30-03-1964', 'dd-mm-yyyy'));
 insert into PATIENT (patientid, firstname, lastname, birthdate)
 values (400, 'Raphael', 'Becker', to_date('23-06-1994', 'dd-mm-yyyy'));
+commit;
+prompt 400 records loaded
+prompt Loading SURGERY_ROOM...
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (1, 'G', 'Emergency Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
@@ -3584,6 +3760,8 @@ insert into SURGERY_ROOM (roomid, location, roomtype)
 values (99, 'A', 'General Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (100, 'A', 'Laparoscopic Operating');
+commit;
+prompt 100 records committed...
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (101, 'B', 'General Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
@@ -3784,6 +3962,8 @@ insert into SURGERY_ROOM (roomid, location, roomtype)
 values (199, 'C', 'General Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (200, 'I', 'Emergency Operating');
+commit;
+prompt 200 records committed...
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (201, 'E', 'General Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
@@ -3984,6 +4164,8 @@ insert into SURGERY_ROOM (roomid, location, roomtype)
 values (299, 'F', 'Laparoscopic Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (300, 'A', 'General Operating');
+commit;
+prompt 300 records committed...
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (301, 'A', 'Laparoscopic Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
@@ -4184,6 +4366,9 @@ insert into SURGERY_ROOM (roomid, location, roomtype)
 values (399, 'B', 'Emergency Operating');
 insert into SURGERY_ROOM (roomid, location, roomtype)
 values (400, 'B', 'General Operating');
+commit;
+prompt 400 records loaded
+prompt Loading SURGERY...
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (1, to_date('20-04-2021', 'dd-mm-yyyy'), 'Short_surgery', 138, 22, 312, 8);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
@@ -4384,6 +4569,8 @@ insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doc
 values (99, to_date('06-05-2010', 'dd-mm-yyyy'), 'Short_surgery', 55, 288, 318, 168);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (100, to_date('20-12-2020', 'dd-mm-yyyy'), 'Short_surgery', 377, 76, 23, 307);
+commit;
+prompt 100 records committed...
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (101, to_date('13-10-2022', 'dd-mm-yyyy'), 'Intermediate_surgerie', 285, 163, 224, 339);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
@@ -4584,6 +4771,8 @@ insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doc
 values (199, to_date('29-07-2011', 'dd-mm-yyyy'), 'Intermediate_surgerie', 154, 378, 214, 187);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (200, to_date('23-05-2013', 'dd-mm-yyyy'), 'Long_surgery', 127, 351, 385, 315);
+commit;
+prompt 200 records committed...
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (201, to_date('08-07-2011', 'dd-mm-yyyy'), 'Long_surgery', 230, 70, 396, 216);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
@@ -4784,6 +4973,8 @@ insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doc
 values (299, to_date('23-04-2023', 'dd-mm-yyyy'), 'Intermediate_surgerie', 113, 382, 70, 184);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (300, to_date('26-11-2015', 'dd-mm-yyyy'), 'Short_surgery', 383, 30, 64, 393);
+commit;
+prompt 300 records committed...
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (301, to_date('01-06-2010', 'dd-mm-yyyy'), 'Long_surgery', 132, 228, 283, 388);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
@@ -4984,6 +5175,9 @@ insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doc
 values (399, to_date('07-04-2013', 'dd-mm-yyyy'), 'Intermediate_surgerie', 14, 113, 388, 240);
 insert into SURGERY (surgeryid, surgerydate, surgerytype, roomid, patientid, doctorid, nurseid)
 values (400, to_date('15-08-2010', 'dd-mm-yyyy'), 'Intermediate_surgerie', 239, 243, 217, 312);
+commit;
+prompt 400 records loaded
+prompt Loading USED_IN...
 insert into USED_IN (medicineid, surgeryid)
 values (30, 363);
 insert into USED_IN (medicineid, surgeryid)
@@ -5184,6 +5378,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (496, 286);
 insert into USED_IN (medicineid, surgeryid)
 values (130, 42);
+commit;
+prompt 100 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (304, 277);
 insert into USED_IN (medicineid, surgeryid)
@@ -5384,6 +5580,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (396, 362);
 insert into USED_IN (medicineid, surgeryid)
 values (325, 114);
+commit;
+prompt 200 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (384, 130);
 insert into USED_IN (medicineid, surgeryid)
@@ -5584,6 +5782,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (184, 321);
 insert into USED_IN (medicineid, surgeryid)
 values (62, 170);
+commit;
+prompt 300 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (238, 288);
 insert into USED_IN (medicineid, surgeryid)
@@ -5784,6 +5984,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (155, 221);
 insert into USED_IN (medicineid, surgeryid)
 values (150, 380);
+commit;
+prompt 400 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (344, 16);
 insert into USED_IN (medicineid, surgeryid)
@@ -5984,6 +6186,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (186, 173);
 insert into USED_IN (medicineid, surgeryid)
 values (410, 272);
+commit;
+prompt 500 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (179, 161);
 insert into USED_IN (medicineid, surgeryid)
@@ -6184,6 +6388,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (90, 165);
 insert into USED_IN (medicineid, surgeryid)
 values (432, 161);
+commit;
+prompt 600 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (202, 176);
 insert into USED_IN (medicineid, surgeryid)
@@ -6384,6 +6590,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (267, 239);
 insert into USED_IN (medicineid, surgeryid)
 values (164, 200);
+commit;
+prompt 700 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (115, 317);
 insert into USED_IN (medicineid, surgeryid)
@@ -6584,6 +6792,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (235, 127);
 insert into USED_IN (medicineid, surgeryid)
 values (138, 388);
+commit;
+prompt 800 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (25, 49);
 insert into USED_IN (medicineid, surgeryid)
@@ -6784,6 +6994,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (214, 344);
 insert into USED_IN (medicineid, surgeryid)
 values (397, 89);
+commit;
+prompt 900 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (82, 173);
 insert into USED_IN (medicineid, surgeryid)
@@ -6984,6 +7196,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (495, 258);
 insert into USED_IN (medicineid, surgeryid)
 values (437, 111);
+commit;
+prompt 1000 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (257, 68);
 insert into USED_IN (medicineid, surgeryid)
@@ -7184,6 +7398,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (225, 298);
 insert into USED_IN (medicineid, surgeryid)
 values (197, 50);
+commit;
+prompt 1100 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (447, 200);
 insert into USED_IN (medicineid, surgeryid)
@@ -7384,6 +7600,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (124, 7);
 insert into USED_IN (medicineid, surgeryid)
 values (59, 134);
+commit;
+prompt 1200 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (62, 333);
 insert into USED_IN (medicineid, surgeryid)
@@ -7584,6 +7802,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (63, 167);
 insert into USED_IN (medicineid, surgeryid)
 values (77, 102);
+commit;
+prompt 1300 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (380, 229);
 insert into USED_IN (medicineid, surgeryid)
@@ -7784,6 +8004,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (393, 349);
 insert into USED_IN (medicineid, surgeryid)
 values (55, 159);
+commit;
+prompt 1400 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (342, 203);
 insert into USED_IN (medicineid, surgeryid)
@@ -7984,6 +8206,8 @@ insert into USED_IN (medicineid, surgeryid)
 values (163, 87);
 insert into USED_IN (medicineid, surgeryid)
 values (391, 286);
+commit;
+prompt 1500 records committed...
 insert into USED_IN (medicineid, surgeryid)
 values (282, 242);
 insert into USED_IN (medicineid, surgeryid)
@@ -8172,3 +8396,31 @@ insert into USED_IN (medicineid, surgeryid)
 values (31, 187);
 insert into USED_IN (medicineid, surgeryid)
 values (21, 149);
+commit;
+prompt 1594 records loaded
+prompt Enabling foreign key constraints for SURGERY...
+alter table SURGERY enable constraint SYS_C008760;
+alter table SURGERY enable constraint SYS_C008761;
+alter table SURGERY enable constraint SYS_C008762;
+alter table SURGERY enable constraint SYS_C008763;
+prompt Enabling foreign key constraints for USED_IN...
+alter table USED_IN enable constraint SYS_C008772;
+alter table USED_IN enable constraint SYS_C008773;
+prompt Enabling triggers for DOCTOR...
+alter table DOCTOR enable all triggers;
+prompt Enabling triggers for MEDICINE...
+alter table MEDICINE enable all triggers;
+prompt Enabling triggers for NURSE...
+alter table NURSE enable all triggers;
+prompt Enabling triggers for PATIENT...
+alter table PATIENT enable all triggers;
+prompt Enabling triggers for SURGERY_ROOM...
+alter table SURGERY_ROOM enable all triggers;
+prompt Enabling triggers for SURGERY...
+alter table SURGERY enable all triggers;
+prompt Enabling triggers for USED_IN...
+alter table USED_IN enable all triggers;
+
+set feedback on
+set define on
+prompt Done
