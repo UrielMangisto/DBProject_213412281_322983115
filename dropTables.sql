@@ -1,0 +1,7 @@
+DROP TABLE Used_In;
+DROP TABLE Surgery;
+DROP TABLE Doctor;
+DROP TABLE Nurse;
+DROP TABLE Surgery_Room;
+DROP TABLE Patient;
+DROP TABLE Medicine;
