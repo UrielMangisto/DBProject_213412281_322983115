@@ -66,6 +66,17 @@ DBProject_2281_3115 is a database project designed for the Surgery Room Departme
   - **Performance:** Optimizes the performance of queries and data manipulation operations by ensuring that the data is stored in the most appropriate format.
 
 
+## Data Insetiom Methods
+### Using DataGenerator
+![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 57_1fb34496](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/d80a2f9c-df42-4f23-9e1d-7f0cc0fca08b)
+
+### Using Mockaroo
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/adb22509-1c3c-4d73-976c-123896dacf3a)
+
+### Using GenerateData
+![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 02_50404025](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/a94263fa-3e9c-4e53-adc4-f28d3c82d364)
+
+
 ## Create Table Commands
 ```sql
 CREATE TABLE Doctor
@@ -141,13 +152,4 @@ CREATE TABLE Used_In
 
 
 
-## Data Insetiom Methods
-### Using DataGenerator
-![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 57_1fb34496](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/d80a2f9c-df42-4f23-9e1d-7f0cc0fca08b)
-
-### Using Mockaroo
-![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/adb22509-1c3c-4d73-976c-123896dacf3a)
-
-### Using GenerateData
-![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 02_50404025](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/a94263fa-3e9c-4e53-adc4-f28d3c82d364)
 
