@@ -7,16 +7,16 @@ Contributors: Uriel Mangisto, Omer Avidar
 # DBProject_2281_3115
 
 ## Table of Contents
-- Title Page
-- Introduction
-- ERD and DSD Diagrams
-- Design Decisions
-- Create Table Commands
-- Data Insertion Methods
-- Backup and Restore
+- [Title Page](#title-page)
+- [Introduction](#introduction)
+- [ERD and DSD Diagrams](#erd-and-dsd-diagrams)
+- [Design Decisions](#design-decisions)
+- [Create Table Commands](#create-table-commands)
+- [Data Insertion Methods](#data-insertion-methods)
+- [Backup and Restore](#backup-and-restore)
 
 ## Title Page
-**Project Title:** project in Data Bases
+**Project Title:** project in Data Bases  
 **System:** Medical data management system  
 **Selected Unit:** Surgery Room Department
 
@@ -65,8 +65,7 @@ DBProject_2281_3115 is a database project designed for the Surgery Room Departme
   - **Storage Optimization:** Ensures that data is stored in the most efficient format, reducing the overall storage requirements.
   - **Performance:** Optimizes the performance of queries and data manipulation operations by ensuring that the data is stored in the most appropriate format.
 
-
-## Data Insetiom Methods
+## Data Insertion Methods
 ### Using DataGenerator
 ![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 57_1fb34496](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/d80a2f9c-df42-4f23-9e1d-7f0cc0fca08b)
 
@@ -75,7 +74,6 @@ DBProject_2281_3115 is a database project designed for the Surgery Room Departme
 
 ### Using GenerateData
 ![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 02_50404025](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/a94263fa-3e9c-4e53-adc4-f28d3c82d364)
-
 
 ## Create Table Commands
 ```sql
@@ -148,8 +146,3 @@ CREATE TABLE Used_In
   FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
-
-
-
-
-
