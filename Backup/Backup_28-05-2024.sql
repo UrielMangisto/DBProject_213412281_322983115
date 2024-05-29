@@ -8396,7 +8396,7 @@ insert into USED_IN (medicineid, surgeryid)
 values (31, 187);
 insert into USED_IN (medicineid, surgeryid)
 values (21, 149);
-commit;
+commit;  
 prompt 1594 records loaded
 prompt Enabling foreign key constraints for SURGERY...
 alter table SURGERY enable constraint SYS_C008760;
