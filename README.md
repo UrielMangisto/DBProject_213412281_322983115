@@ -1,5 +1,5 @@
-# Project Title: Surgery Room Management System
-Contributors: Uriel Mangisto, Omer Avidar
+# Surgery Room Management System
+Contributors: Uriel Mangisto 213412281, Omer Avidar 322983115
 
 ## System: Hospital Data Management System
 ### Selected Unit: Surgery Room Department
