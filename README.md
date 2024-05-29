@@ -65,16 +65,6 @@ DBProject_2281_3115 is a database project designed for the Surgery Room Departme
   - **Storage Optimization:** Ensures that data is stored in the most efficient format, reducing the overall storage requirements.
   - **Performance:** Optimizes the performance of queries and data manipulation operations by ensuring that the data is stored in the most appropriate format.
 
-## Data Insertion Methods
-### Using DataGenerator
-![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 57_1fb34496](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/d80a2f9c-df42-4f23-9e1d-7f0cc0fca08b)
-
-### Using Mockaroo
-![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/adb22509-1c3c-4d73-976c-123896dacf3a)
-
-### Using GenerateData
-![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 02_50404025](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/a94263fa-3e9c-4e53-adc4-f28d3c82d364)
-
 ## Create Table Commands
 ```sql
 CREATE TABLE Doctor
@@ -147,6 +137,14 @@ CREATE TABLE Used_In
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
 ```
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/1e10adc3-559d-4754-a7e9-a635beb6aa95)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/4f94a3bc-0e24-4691-aac9-72ce89a812a3)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/3c2f8dfe-192e-4151-b78f-a37a923e9ff8)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/23f37f95-48b7-4621-914a-0d83eafb46c6)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/60f44013-18c7-4c97-ae52-39a9fa342d51)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/2d9b91f2-3ae2-48ae-9081-5b037ee9bec6)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/5308a218-4166-4a7c-9be8-88b0ee61a2fc)
+
 ## .desc Command
 ![צילום מסך 2024-05-29 213434](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/204cc2b9-9786-4471-8c77-c67a6fb3878c)
 
