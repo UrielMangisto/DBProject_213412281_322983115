@@ -150,5 +150,27 @@ CREATE TABLE Used_In
 ## .desc Command
 ![צילום מסך 2024-05-29 213434](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/204cc2b9-9786-4471-8c77-c67a6fb3878c)
 
+# Data Insertion Methods
+## Using DataGenerator
+![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 50_f02e2687](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/cfb631ca-ed0e-4ecd-8a8c-dbe4031a894a)
+
+## Using GenerateData
+
+![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 06_5c929fff](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/58055397-9a0b-4adb-acff-1c2b6573674e)
+
+## Using Mockaroo
+![תמונה של WhatsApp‏ 2024-05-30 בשעה 02 00 36_e80f176a](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/0adb81e1-eed4-48cf-acb1-5995f8fa1336)
+![תמונה של WhatsApp‏ 2024-05-30 בשעה 02 01 07_5034235f](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/e4ad3f8d-fd04-4180-9f89-f910c6a15e09)
+
+
+# Backup 
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/decbce04-6ad0-4157-aa68-8f0980483dc6)
+
+
+# Restore
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/9eb9f48b-4ea9-4bbc-8359-1521fab6d66e)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/6bfe03e7-51b9-427a-8274-63cde3a4fef5)
+
 
 
