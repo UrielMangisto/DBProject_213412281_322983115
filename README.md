@@ -1,5 +1,5 @@
 # Project Title: Surgery Room Management System
-Contributors: Uriel Mangisto, [Other Contributors]
+Contributors: Uriel Mangisto, Omer Avidar
 
 ## System: Hospital Data Management System
 ### Selected Unit: Surgery Room Department
@@ -16,8 +16,7 @@ Contributors: Uriel Mangisto, [Other Contributors]
 - Backup and Restore
 
 ## Title Page
-**Project Title:** DBProject_2281_3115  
-**Contributors:** Noam Benisho, Yair Lasry, Uriel Mangisto  
+**Project Title:** project in Data Bases
 **System:** Medical data management system  
 **Selected Unit:** Surgery Room Department
 
@@ -137,4 +136,16 @@ CREATE TABLE Used_In
   FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
+
+## Data Insetiom Methods
+### Using DataGenerator 
+![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 57_1fb34496](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/d80a2f9c-df42-4f23-9e1d-7f0cc0fca08b)
+
+### Using mockaroo
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/adb22509-1c3c-4d73-976c-123896dacf3a)
+
+
+### using generatedata 
+![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 02_50404025](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/a94263fa-3e9c-4e53-adc4-f28d3c82d364)
+
 
