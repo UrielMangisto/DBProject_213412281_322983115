@@ -146,3 +146,4 @@ CREATE TABLE Used_In
   FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
+...
