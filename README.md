@@ -146,6 +146,9 @@ CREATE TABLE Used_In
   FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
-...
+```
+## .desc Command
+![צילום מסך 2024-05-29 213434](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/204cc2b9-9786-4471-8c77-c67a6fb3878c)
+
 
 
