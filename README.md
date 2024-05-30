@@ -160,6 +160,20 @@ CREATE TABLE Used_In
 ![תמונה של WhatsApp‏ 2024-05-30 בשעה 02 00 36_e80f176a](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/0adb81e1-eed4-48cf-acb1-5995f8fa1336)
 ![תמונה של WhatsApp‏ 2024-05-30 בשעה 02 01 07_5034235f](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/e4ad3f8d-fd04-4180-9f89-f910c6a15e09)
 
+# csv import screenshots
+## doctor
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/3d027c60-4f4a-42cd-aab2-8221056446ce)
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/6f44e191-8928-4112-b0b8-20fed3760fb3)
+## medicine
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/e411f051-f32a-4944-9272-556a307d4331)
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/5ff3014e-7502-41a2-be5f-6d1c0b0e83ef)
+
+## patient
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/696233a0-4e79-435c-b5b1-1f2dd97591ad)
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/c4ac9885-c2b5-4e64-be47-4f36fd6be6a2)
 
 # Backup 
 ![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/decbce04-6ad0-4157-aa68-8f0980483dc6)
