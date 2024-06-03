@@ -65,16 +65,6 @@ DBProject_2281_3115 is a database project designed for the Surgery Room Departme
   - **Storage Optimization:** Ensures that data is stored in the most efficient format, reducing the overall storage requirements.
   - **Performance:** Optimizes the performance of queries and data manipulation operations by ensuring that the data is stored in the most appropriate format.
 
-## Data Insertion Methods
-### Using DataGenerator
-![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 57_1fb34496](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/d80a2f9c-df42-4f23-9e1d-7f0cc0fca08b)
-
-### Using Mockaroo
-![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/adb22509-1c3c-4d73-976c-123896dacf3a)
-
-### Using GenerateData
-![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 02_50404025](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116572127/a94263fa-3e9c-4e53-adc4-f28d3c82d364)
-
 ## Create Table Commands
 ```sql
 CREATE TABLE Doctor
@@ -146,6 +136,53 @@ CREATE TABLE Used_In
   FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID),
   FOREIGN KEY (SurgeryID) REFERENCES Surgery(SurgeryID)
 );
-...
+```
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/1e10adc3-559d-4754-a7e9-a635beb6aa95)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/4f94a3bc-0e24-4691-aac9-72ce89a812a3)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/3c2f8dfe-192e-4151-b78f-a37a923e9ff8)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/23f37f95-48b7-4621-914a-0d83eafb46c6)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/60f44013-18c7-4c97-ae52-39a9fa342d51)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/2d9b91f2-3ae2-48ae-9081-5b037ee9bec6)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/5308a218-4166-4a7c-9be8-88b0ee61a2fc)
+
+## .desc Command
+![צילום מסך 2024-05-29 213434](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/204cc2b9-9786-4471-8c77-c67a6fb3878c)
+
+# Data Insertion Methods
+## Using DataGenerator
+![תמונה של WhatsApp‏ 2024-05-28 בשעה 15 16 50_f02e2687](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/cfb631ca-ed0e-4ecd-8a8c-dbe4031a894a)
+
+## Using GenerateData
+
+![תמונה של WhatsApp‏ 2024-05-27 בשעה 09 49 06_5c929fff](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/58055397-9a0b-4adb-acff-1c2b6573674e)
+
+## Using Mockaroo
+![תמונה של WhatsApp‏ 2024-05-30 בשעה 02 00 36_e80f176a](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/0adb81e1-eed4-48cf-acb1-5995f8fa1336)
+![תמונה של WhatsApp‏ 2024-05-30 בשעה 02 01 07_5034235f](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/e4ad3f8d-fd04-4180-9f89-f910c6a15e09)
+
+# csv import screenshots
+## doctor
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/3d027c60-4f4a-42cd-aab2-8221056446ce)
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/6f44e191-8928-4112-b0b8-20fed3760fb3)
+## medicine
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/e411f051-f32a-4944-9272-556a307d4331)
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/5ff3014e-7502-41a2-be5f-6d1c0b0e83ef)
+
+## patient
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/696233a0-4e79-435c-b5b1-1f2dd97591ad)
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/c4ac9885-c2b5-4e64-be47-4f36fd6be6a2)
+
+# Backup 
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/decbce04-6ad0-4157-aa68-8f0980483dc6)
+
+
+# Restore
+
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/9eb9f48b-4ea9-4bbc-8359-1521fab6d66e)
+![image](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/6bfe03e7-51b9-427a-8274-63cde3a4fef5)
+
 
 
