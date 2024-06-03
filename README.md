@@ -13,7 +13,10 @@ Contributors: Uriel Mangisto 213412281, Omer Avidar 322983115
 - [Design Decisions](#design-decisions)
 - [Create Table Commands](#create-table-commands)
 - [Data Insertion Methods](#data-insertion-methods)
-- [Backup and Restore](#backup-and-restore)
+- [Backup](#backup)
+- [Restore](#restore)
+
+
 
 ## Title Page
 **Project Title:** project in Data Bases  
