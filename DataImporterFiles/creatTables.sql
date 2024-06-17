@@ -39,7 +39,7 @@ CREATE TABLE Medicine
 (
   MedicineID INT NOT NULL,
   Name VARCHAR2(30) NOT NULL,
-  Cost INT NOT NULL,
+  Dosage INT NOT NULL,
   PRIMARY KEY (MedicineID)
 );
 
