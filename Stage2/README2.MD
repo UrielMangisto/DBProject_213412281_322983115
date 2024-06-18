@@ -117,16 +117,16 @@ This README provides an overview of several database queries designed for analyz
 1. **Update Medicine Dosage**
    - מעדכן את הרופאים שניתחו אנשים שנולדו בים 1970 ל 1980 לדרגת רופא בכיר 
 
-```sql
-UPDATE Doctor d
-SET Position = 'Senior'
-WHERE d.DoctorID IN (
-    SELECT DISTINCT s.DoctorID
-    FROM Surgery s
-    JOIN Patient p ON s.PatientID = p.PatientID
-    WHERE EXTRACT(YEAR FROM p.BirthDate) BETWEEN 1970 AND 1980
-);
-```
+   ```sql
+   UPDATE Doctor d
+   SET Position = 'Senior'
+   WHERE d.DoctorID IN (
+       SELECT DISTINCT s.DoctorID
+       FROM Surgery s
+       JOIN Patient p ON s.PatientID = p.PatientID
+       WHERE EXTRACT(YEAR FROM p.BirthDate) BETWEEN 1970 AND 1980
+   );
+   ```
 ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof1.jpg)
 
 
