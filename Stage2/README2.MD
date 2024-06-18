@@ -149,10 +149,11 @@ This README provides an overview of several database queries designed for analyz
     FROM Surgery s
     JOIN Patient p ON s.PatientID = p.PatientID
     WHERE EXTRACT(YEAR FROM p.BirthDate) = 1985
-);
+   );
    ```
-   ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof2.jpg)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof2.jpg)
 
+  
 
 
 ### PARAMSELECT Queries
