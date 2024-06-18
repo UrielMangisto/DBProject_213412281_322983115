@@ -28,7 +28,9 @@ This document provides detailed descriptions, code, and results for various data
 ## SELECT Queries
 
 ### Query 1
-**Description:** Select the doctor's first name, last name, and the year, month, and number of surgeries.
+Goal: Display the number of surgeries performed by each doctor, grouped by month and year.
+
+Explanation: The query calculates the number of surgeries per doctor for each month and year using a subquery. A CROSS JOIN with the doctors table allows displaying this data alongside doctor details, even without a direct foreign key link.
 
 **Query Code:**
 ```sql
@@ -51,8 +53,9 @@ ORDER BY d.LastName, d.FirstName, t.year, t.month;
 ![Query 1 Result](images/select/query1_result.png)
 
 ### Query 2
-**Description:** Select doctor's first name, last name, specialty, count of surgeries, and average age of patients.
+Goal: List doctors who performed more surgeries than the average, with details on their specialization, number of surgeries, and average patient age.
 
+Explanation: The query shows doctors' names, specialization, surgery count, and average patient age. The HAVING clause ensures doctors performed more surgeries than the average, sorted by descending surgery count.
 **Query Code:**
 ```sql
 SELECT d.FirstName, d.LastName, d.Speciality, COUNT(s.SurgeryID) AS NumSurgeries, 
@@ -76,7 +79,9 @@ ORDER BY NumSurgeries DESC;
 ![Query 2 Result](images/select/query2_result.png)
 
 ### Query 3
-**Description:** Select patient’s first name, last name, birth date, number of surgeries, number of distinct medicines, and average medicine dosage.
+Goal: Display patients, their birthdates, number of surgeries, number of different medicines administered, and the average dosage.
+
+Explanation: The query lists patients' names, birthdates, number of surgeries, different medicines, and average dosage. Subqueries calculate specific patient information, sorted by descending number of surgeries and different medicines.
 
 **Query Code:**
 ```sql
@@ -101,7 +106,9 @@ ORDER BY NumSurgeries DESC, NumMedicines DESC;
 ![Query 3 Result](images/select/query3_result.png)
 
 ### Query 4
-**Description:** Calculate the average number of surgeries and the maximum number of high-dosage medicines used per doctor, grouped by specialty.
+Goal: For each medical specialty, show the average number of surgeries per doctor and the maximum number of medicines with above-average dosage used in surgeries.
+
+Explanation: Using a CTE, the query calculates statistics for each doctor, including surgeries and medicines with above-average dosage. The main query calculates the average surgeries per doctor and the maximum high-dosage medicines per specialty, sorted by descending average surgeries.
 
 **Query Code:**
 ```sql
@@ -129,7 +136,9 @@ ORDER BY AvgSurgeriesPerDoctor DESC;
 ## SELECT Queries with Parameters
 
 ### Params Query 1
-**Description:** Retrieve information about surgeries, patients, doctors, and medicines based on doctor’s specialty, minimum patient age, and minimum medicine dosage.
+Goal: Find surgeries performed by a doctor with a specific specialty, where the patient is older than a given age and the surgery used a medicine costing more than a specified amount.
+
+Explanation: The query displays surgeries by doctors with a specific specialty, filtering patients older than a given age and using medicines costing more than a specified amount.
 
 **Query Code:**
 ```sql
@@ -149,7 +158,9 @@ ORDER BY s.SurgeryDate DESC;
 ```
 
 ### Params Query 2
-**Description:** Retrieve the top N nurses based on the number of surgeries they assisted for a specific type of surgery and within a given date range.
+Goal: Find the top N nurses who assisted in the most surgeries of a specific type within a date range.
+
+Explanation: The query shows the top N nurses based on the number of specific-type surgeries they assisted in, within a specified date range.
 
 **Query Code:**
 ```sql
@@ -167,7 +178,9 @@ WHERE ROWNUM <= &Enter_Top_N_Nurses;
 ```
 
 ### Params Query 3
-**Description:** Select surgery rooms with usage count higher than the average for a specific surgery type and date range.
+Goal: Find all surgery rooms used for a specific surgery type more than the average usage for that type, within a specified date range.
+
+Explanation: The query lists surgery rooms used more than the average for a specific type within a date range.
 
 **Query Code:**
 ```sql
@@ -192,7 +205,9 @@ ORDER BY ru.UsageCount DESC;
 ```
 
 ### Params Query 4
-**Description:** Select top nurses based on a diversity score for recent surgeries, considering the number of unique doctors, surgery types, and total surgeries.
+Goal: Find nurses who worked with the most diverse set of doctors and surgery types.
+
+Explanation: The query displays nurses who worked with the most diverse set of doctors and surgery types, using diversity metrics calculated from recent surgeries.
 
 **Query Code:**
 ```sql
