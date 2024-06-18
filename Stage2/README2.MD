@@ -116,7 +116,8 @@ This README provides an overview of several database queries designed for analyz
 
 1. **Update Medicine Dosage**
    - מעדכן את הרופאים שניתחו אנשים שנולדו בים 1970 ל 1980 לדרגת רופא בכיר 
-   ```sql
+
+```sql
 UPDATE Doctor d
 SET Position = 'Senior'
 WHERE d.DoctorID IN (
@@ -127,7 +128,7 @@ WHERE d.DoctorID IN (
 );
   
 ```
- ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof1.jpg)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof1.jpg)
 
 
 2. **Update Nurse Start Dates**
