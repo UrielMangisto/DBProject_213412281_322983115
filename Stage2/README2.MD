@@ -126,7 +126,6 @@ WHERE d.DoctorID IN (
     JOIN Patient p ON s.PatientID = p.PatientID
     WHERE EXTRACT(YEAR FROM p.BirthDate) BETWEEN 1970 AND 1980
 );
-  
 ```
 ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof1.jpg)
 
