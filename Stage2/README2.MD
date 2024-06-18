@@ -1,6 +1,4 @@
-בהתבסס על השאילתות שסיפקת מ-STAGE2, הנה קובץ README מלא ומוכן להעתקה ל-GitHub:
 
-```markdown
 # Stage 2 - Query Report
 
 ## Table of Contents
