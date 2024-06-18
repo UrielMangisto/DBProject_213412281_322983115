@@ -219,7 +219,7 @@ This README provides an overview of several database queries designed for analyz
    ALTER TABLE Medicine
    ADD CONSTRAINT chk_medicine_dosage_positive CHECK (Dosage > 0);
    ```
-
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/CONSTRAINTVIO1.jpg)
 
 ### 2. **DEFAULT Constraint on Position in Doctor Table**
    ```sql
