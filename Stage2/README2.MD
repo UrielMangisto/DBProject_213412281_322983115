@@ -38,7 +38,7 @@ This README provides an overview of several database queries designed for analyz
       JOIN AverageSurgeryCount a ON d.SurgeryCount > a.AvgCount
       ORDER BY d.SurgeryCount DESC;
       ```
-   ![Example Image]      (https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select1Proof.png)
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select2Proof.png)
 
 3. **Patient Surgery and Medicine Details**
    - מציג את פרטי המטופלים, מספר הניתוחים, תרופות שונות שניתנו והמינון הממוצע.
