@@ -174,20 +174,42 @@ This README provides an overview of several database queries designed for analyz
 3. **Surgery Room Usage**
    - Lists surgery rooms used for a specific surgery type more than the average usage for that type, within a specified date range.
    ```sql
-   WITH RoomUsage AS (
-     SELECT sr.RoomID, sr.Location, sr.RoomType, COUNT(*) AS UsageCount
-     FROM Surgery_Room sr
-     JOIN Surgery s ON sr.RoomID = s.RoomID
-     WHERE s.SurgeryType = '&Enter_Surgery_Type'
-       AND s.SurgeryDate BETWEEN TO_DATE('&Enter_Start_Date', 'DD-MM-YYYY') AND TO_DATE('&Enter_End_Date', 'DD-MM-YYYY')
-     GROUP BY sr.RoomID, sr.Location, sr.RoomType
-   ),
-   AverageUsage AS (
-     SELECT AVG(UsageCount) AS AvgUsage
-     FROM RoomUsage
-   )
+   WITH RoomUsage AS ( -- This CTE calculates the usage count of each surgery room for a specific surgery type and date range
+   SELECT sr.RoomID, sr.Location, sr.RoomType, COUNT(*) AS UsageCount
+   FROM Surgery_Room sr
+   JOIN Surgery s ON sr.RoomID = s.RoomID
+   WHERE s.SurgeryType = '&Enter_Surgery_Type'
+     AND s.SurgeryDate BETWEEN TO_DATE('&Enter_Start_Date', 'DD-MM-YYYY') 
+                            AND TO_DATE('&Enter_End_Date', 'DD-MM-YYYY')
+   GROUP BY sr.RoomID, sr.Location, sr.RoomType
+),
+AverageUsage AS (
+   SELECT AVG(UsageCount) AS AvgUsage
+   FROM RoomUsage
+)
 SELECT ru.RoomID, ru.Location, ru.RoomType, ru.UsageCount
 FROM RoomUsage ru
 CROSS JOIN AverageUsage au
 WHERE ru.UsageCount > au.AvgUsage
 ORDER BY ru.UsageCount DESC;
+```
+4. **Nurse Diversity Metrics**
+   - Finds nurses who worked with the most diverse set of doctors and surgery types, calculated from recent surgeries.
+   ```sql
+   WITH NurseDiversity AS ( -- This CTE calculates diversity metrics for each nurse based on recent surgeries
+   SELECT n.NurseID, n.FirstName, n.LastName,
+          COUNT(DISTINCT s.DoctorID) AS UniqueDoctos, -- Count of unique doctors the nurse worked with
+          COUNT(DISTINCT s.SurgeryType) AS UniqueSurgeryTypes, -- Count of unique surgery types the nurse assisted in
+          COUNT(*) AS TotalSurgeries -- Total number of surgeries the nurse assisted in
+   FROM Nurse n
+   JOIN Surgery s ON n.NurseID = s.NurseID
+   WHERE s.SurgeryDate >= ADD_MONTHS(SYSDATE, -&Enter_Months_Back) -- Consider surgeries within the specified month range
+   GROUP BY n.NurseID, n.FirstName, n.LastName
+   )
+   SELECT NurseID, FirstName, LastName, UniqueDoctos, UniqueSurgeryTypes, TotalSurgeries,
+         ROUND((UniqueDoctos + UniqueSurgeryTypes) * 100.0 / (2 * TotalSurgeries), 2) AS DiversityScore
+   FROM NurseDiversity
+   WHERE TotalSurgeries >= &Enter_Minimum_Surgeries
+   ORDER BY DiversityScore DESC
+   FETCH FIRST &Enter_Top_N_Nurses ROWS ONLY;
+   ```
