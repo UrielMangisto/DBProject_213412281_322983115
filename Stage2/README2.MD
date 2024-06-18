@@ -115,26 +115,19 @@ This README provides an overview of several database queries designed for analyz
 ### UPDATE Queries
 
 1. **Update Medicine Dosage**
-   - עדכון מינון התרופות המשמשות בניתוחים המבוצעים על ידי רופאים בעלי תפקיד ספציפי למינון הממוצע של אותן תרופות.
+   - מעדכן את הרופאים שניתחו אנשים שנולדו בים 1970 ל 1980 לדרגת רופא בכיר 
    ```sql
-   UPDATE Medicine m
-   SET m.Dosage = (
-     SELECT AVG(m2.Dosage)
-     FROM Medicine m2
-     JOIN Used_In ui ON m2.MedicineID = ui.MedicineID
-     JOIN Surgery s ON ui.SurgeryID = s.SurgeryID
-     JOIN Doctor d ON s.DoctorID = d.DoctorID
-     WHERE d.Position =  'Senior'
-   )
-   WHERE m.MedicineID IN (
-     SELECT m3.MedicineID
-     FROM Medicine m3
-     JOIN Used_In ui2 ON m3.MedicineID = ui2.MedicineID
-     JOIN Surgery s2 ON ui2.SurgeryID = s2.SurgeryID
-     JOIN Doctor d2 ON s2.DoctorID = d2.DoctorID
-     WHERE d2.position = 'senior'
-   );
+   UPDATE Doctor d
+SET Position = 'Senior'
+WHERE d.DoctorID IN (
+    SELECT DISTINCT s.DoctorID
+    FROM Surgery s
+    JOIN Patient p ON s.PatientID = p.PatientID
+    WHERE EXTRACT(YEAR FROM p.BirthDate) BETWEEN 1970 AND 1980
+);
    ```
+ ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof1.jpg)
+
 
 2. **Update Nurse Start Dates**
    - מעדכן את תאריך התחלת העבודה של אחיות שהשתתפו ביותר מניתוח אחד למועד הניתוח הראשון
