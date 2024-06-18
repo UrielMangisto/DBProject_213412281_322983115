@@ -104,10 +104,9 @@ This README provides an overview of several database queries designed for analyz
    WHERE PatientID NOT IN (SELECT DISTINCT PatientID FROM Surgery)
      AND BirthDate < TO_DATE('01-01-1970', 'DD-MM-YYYY');
    ```
-  ![Example Image]
-(https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofB2.jpg)
-  ![Example Image]
-(https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofA2.jpg)
+   ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofB2.png)
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofA2.png)
+
 
 
 
