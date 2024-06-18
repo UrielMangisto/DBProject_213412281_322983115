@@ -51,8 +51,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY p.FirstName, p.LastName, p.BirthDate
    ORDER BY SurgeryCount DESC, UniqueMedicines DESC;
    ```
-   ![Example Image]
-(https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select3Proof.png)
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select3Proof.png)
 
 
 4. **Specialty Surgery and Medicine Statistics**
@@ -70,8 +69,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY Speciality
    ORDER BY AvgSurgeryCount DESC;
    ```
-   ![Example Image]
-(https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select4Proof.png)
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select4Proof.png)
 
 
 ### DELETE Queries
