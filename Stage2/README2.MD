@@ -147,6 +147,9 @@ WHERE d.DoctorID IN (
      HAVING COUNT(SurgeryID) > 1
    );
    ```
+   ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof2.jpg)
+
+
 
 ### PARAMSELECT Queries
 
