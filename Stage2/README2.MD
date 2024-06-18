@@ -56,8 +56,9 @@ This README provides an overview of several database queries designed for analyz
 
 4. **Specialty Surgery and Medicine Statistics**
    - עבור כל התמחות רפואית, מציג את מספר הניתוחים הממוצע לרופא ואת המספר המרבי של תרופות בשימוש במינון גבוה מהממוצע.
-   WITH DoctorStats AS (
-     SELECT d.Speciality, d.DoctorID, COUNT(s.SurgeryID) AS SurgeryCount, COUNT(CASE WHEN m.Dosage > (SELECT AVG(Dosage) FROM Medicine) THEN 1 END) AS HighDosageMedicines
+   ```sql
+     WITH DoctorStats AS (
+     SELECT d.Speciality, d.DoctorID, COUNT(s.SurgeryID) AS SurgeryCount, COUNT(CASE WHEN                m.Dosage > (SELECT AVG(Dosage) FROM Medicine) THEN 1 END) AS HighDosageMedicines
      FROM Doctor d
      JOIN Surgery s ON d.DoctorID = s.DoctorID
      JOIN Used_In ui ON s.SurgeryID = ui.SurgeryID
@@ -69,6 +70,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY Speciality
    ORDER BY AvgSurgeryCount DESC;
    ```
+
   ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select4Proof.png)
 
 
