@@ -186,4 +186,8 @@ This README provides an overview of several database queries designed for analyz
      SELECT AVG(UsageCount) AS AvgUsage
      FROM RoomUsage
    )
-   SELECT ru.RoomID, ru.Location, ru.RoomType, ru.Usage
+SELECT ru.RoomID, ru.Location, ru.RoomType, ru.UsageCount
+FROM RoomUsage ru
+CROSS JOIN AverageUsage au
+WHERE ru.UsageCount > au.AvgUsage
+ORDER BY ru.UsageCount DESC;
