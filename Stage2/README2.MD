@@ -5,7 +5,7 @@ This README provides an overview of several database queries designed for analyz
 ### SELECT Queries
 
 1. **Monthly Surgery Count per Doctor**
-   - Displays the number of surgeries each doctor performed, grouped by month and year.
+   - מציג את מספר הניתוחים שכל רופא ביצע, מקובצים לפי חודש ושנה.
    ```sql
    SELECT d.FirstName, d.LastName, EXTRACT(MONTH FROM s.SurgeryDate) AS Month, EXTRACT(YEAR FROM s.SurgeryDate) AS Year, COUNT(s.SurgeryID) AS SurgeryCount
    FROM Doctor d
