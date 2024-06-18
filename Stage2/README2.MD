@@ -220,6 +220,7 @@ This README provides an overview of several database queries designed for analyz
    ADD CONSTRAINT chk_medicine_dosage_positive CHECK (Dosage > 0);
    ```
 
+
 ### 2. **DEFAULT Constraint on Position in Doctor Table**
    ```sql
    ALTER TABLE Doctor
