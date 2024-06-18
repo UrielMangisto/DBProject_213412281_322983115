@@ -164,6 +164,8 @@ WHERE d.DoctorID IN (
      AND m.Cost > &Enter_Minimum_Medicine_Cost
    ORDER BY s.SurgeryDate DESC;
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof1.png)
+
 
 2. **Top N Nurses by Surgery Type**
    - מוצא מספר אחיוות לפי הזנת המשתמש שהשתתפו בהכי הרבה ניתוחים בטווח מסויים 
@@ -179,6 +181,8 @@ WHERE d.DoctorID IN (
    )
    WHERE ROWNUM <= &Enter_Top_N_Nurses;
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof2.png)
+
 
 3. **Surgery Room Usage**
    -  מפרט את חדרי הניתוח המשמשים לסוג ניתוח ספציפי יותר מהשימוש הממוצע לסוג זה, בטווח תאריכים מוגדר על ידי המשתמש
@@ -202,6 +206,9 @@ WHERE d.DoctorID IN (
    WHERE ru.UsageCount > au.AvgUsage
    ORDER BY ru.UsageCount DESC;
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof3.png)
+
+
 4. **Nurse Diversity Metrics**
    - מוצא אחיות שעבדו עם המערך המגוון ביותר של רופאים וסוגי ניתוחים, מחושב מהניתוחים אחרונים
    ```sql
@@ -222,6 +229,10 @@ WHERE d.DoctorID IN (
    ORDER BY DiversityScore DESC
    FETCH FIRST &Enter_Top_N_Nurses ROWS ONLY;
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof4.png)
+
+
+
 ## Constraints
 ### 1. **CHECK Constraint on Dosage in Medicine Table**
    ```sql
