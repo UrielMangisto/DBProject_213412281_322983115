@@ -229,7 +229,7 @@ WHERE d.DoctorID IN (
    ORDER BY DiversityScore DESC
    FETCH FIRST &Enter_Top_N_Nurses ROWS ONLY;
    ```
-![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamsProof.jpg)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamsProof4.jpg)
 
 
 
