@@ -16,5 +16,5 @@ JOIN Used_In ui ON s.SurgeryID = ui.SurgeryID
 JOIN Medicine m ON ui.MedicineID = m.MedicineID
 WHERE d.Speciality = '&Enter_Doctor_Speciality'
   AND MONTHS_BETWEEN(SYSDATE, p.BirthDate)/12 > &Enter_Minimum_Patient_Age
-  AND m.Dosage > &Enter_Minimum_Medicine_Dosage
+  AND m.Dosage > &Enter_Minimum_Medicine_Cost
 ORDER BY s.SurgeryDate DESC;
