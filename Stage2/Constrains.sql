@@ -7,6 +7,6 @@ ADD CONSTRAINT chk_medicine_dosage_positive CHECK (Dosage > 0);
 ALTER TABLE Doctor
 MODIFY Position VARCHAR2(30) DEFAULT 'Junior';
 
--- 3. Add a NOT NULL constraint to the Location column in the Surgery_Room table
-ALTER TABLE Surgery_Room
-MODIFY Location VARCHAR2(30) NOT NULL;
+-- 3. Add a CHECK constraint to the SurgeryType column in the Surgery table, ensuring it is one of the predefined values
+ALTER TABLE Surgery
+ADD CONSTRAINT chk_surgery_type CHECK (SurgeryType IN ('Short_surgery','Intermediate_surgerie','Long_surgery'))

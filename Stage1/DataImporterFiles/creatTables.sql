@@ -1,11 +1,11 @@
 CREATE TABLE Doctor
 (
   DoctorID INT NOT NULL,
-  Speciality VARCHAR2(30) NOT NULL,
   FirstName VARCHAR2(30) NOT NULL,
+  LastName VARCHAR2(30) NOT NULL,
+  Speciality VARCHAR2(30) NOT NULL,
   StartDate DATE NOT NULL,
   Position VARCHAR2(30) NOT NULL,
-  LastName VARCHAR2(30) NOT NULL,
   PRIMARY KEY (DoctorID)
 );
 
@@ -13,8 +13,8 @@ CREATE TABLE Nurse
 (
   NurseID INT NOT NULL,
   FirstName VARCHAR2(30) NOT NULL,
-  StartDate DATE NOT NULL,
   LastName VARCHAR2(30) NOT NULL,
+  StartDate DATE NOT NULL,
   PRIMARY KEY (NurseID)
 );
 
@@ -30,16 +30,16 @@ CREATE TABLE Patient
 (
   PatientID INT NOT NULL,
   FirstName VARCHAR2(30) NOT NULL,
-  BirthDate DATE NOT NULL,
   LastName VARCHAR2(30) NOT NULL,
+  BirthDate DATE NOT NULL,
   PRIMARY KEY (PatientID)
 );
 
 CREATE TABLE Medicine
 (
   MedicineID INT NOT NULL,
-  Name VARCHAR2(30) NOT NULL,
-  Cost INT NOT NULL,
+  MedicineName VARCHAR2(200) NOT NULL,
+  Dosage INT NOT NULL,
   PRIMARY KEY (MedicineID)
 );
 
