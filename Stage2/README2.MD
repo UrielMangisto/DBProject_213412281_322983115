@@ -17,7 +17,8 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY d.FirstName, d.LastName, EXTRACT(MONTH FROM s.SurgeryDate), EXTRACT(YEAR FROM s.SurgeryDate)
    ORDER BY d.FirstName, d.LastName, Year, Month;
    ```
-   Stage2/Images/Select1Proof.png
+![Example Image](Stage2/Images/Select1Proof.png)
+
 
 2. **Doctors with Above-Average Surgeries**
    - מפרט רופאים שביצעו יותר ניתוחים מהממוצע, כולל התמחות, מספר ניתוחים וגיל ממוצע של המטופל
