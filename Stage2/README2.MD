@@ -19,8 +19,7 @@ This README provides an overview of several database queries designed for analyz
    ```
 
 2. **Doctors with Above-Average Surgeries**
-   - Lists doctors who performed more surgeries than the average, including specialization, number of surgeries, and average patient age.
-   ```sql
+   - מפרט רופאים שביצעו יותר ניתוחים מהממוצע, כולל התמחות, מספר ניתוחים וגיל ממוצע של המטופל
    WITH DoctorSurgeryStats AS (
      SELECT d.DoctorID, d.FirstName, d.LastName, d.Speciality, COUNT(s.SurgeryID) AS SurgeryCount, AVG(MONTHS_BETWEEN(SYSDATE, p.BirthDate)/12) AS AvgPatientAge
      FROM Doctor d
@@ -39,7 +38,7 @@ This README provides an overview of several database queries designed for analyz
    ```
 
 3. **Patient Surgery and Medicine Details**
-   - Shows patients' details, the number of surgeries, different medicines administered, and the average dosage.
+   - מציג את פרטי המטופלים, מספר הניתוחים, תרופות שונות שניתנו והמינון הממוצע.
    ```sql
    SELECT p.FirstName, p.LastName, p.BirthDate, COUNT(s.SurgeryID) AS SurgeryCount, COUNT(DISTINCT m.MedicineID) AS UniqueMedicines, AVG(m.Dosage) AS AvgDosage
    FROM Patient p
@@ -51,8 +50,7 @@ This README provides an overview of several database queries designed for analyz
    ```
 
 4. **Specialty Surgery and Medicine Statistics**
-   - For each medical specialty, displays the average number of surgeries per doctor and the maximum number of medicines with above-average dosage used.
-   ```sql
+   - עבור כל התמחות רפואית, מציג את מספר הניתוחים הממוצע לרופא ואת המספר המרבי של תרופות בשימוש במינון גבוה מהממוצע.
    WITH DoctorStats AS (
      SELECT d.Speciality, d.DoctorID, COUNT(s.SurgeryID) AS SurgeryCount, COUNT(CASE WHEN m.Dosage > (SELECT AVG(Dosage) FROM Medicine) THEN 1 END) AS HighDosageMedicines
      FROM Doctor d
@@ -70,7 +68,7 @@ This README provides an overview of several database queries designed for analyz
 ### DELETE Queries
 
 1. **Delete Specific Surgeries from Used_In**
-   - Deletes rows from the Used_In table for surgeries where the patient was 65+, performed by a cardiologist, over 6 months ago, without a recent nurse.
+   - מחק שורות מטבלת Used In עבור ניתוחים שבהם המטופל היה בן 65+, שבוצע על ידי קרדיולוג, לפני למעלה מ-6 חודשים, ללא אחות חדשה.
    ```sql
    DELETE FROM Used_In
    WHERE SurgeryID IN (
@@ -91,7 +89,7 @@ This README provides an overview of several database queries designed for analyz
    ```
 
 2. **Delete Patients without Surgeries**
-   - Deletes patients who haven't had surgeries and were born before a specific date.
+   - מוחק מטופלים שלא עברו ניתוחים ונולדו לפני תאריך מסוים
    ```sql
    DELETE FROM Patient
    WHERE PatientID NOT IN (SELECT DISTINCT PatientID FROM Surgery)
@@ -100,17 +98,17 @@ This README provides an overview of several database queries designed for analyz
 
 ### UPDATE Queries
 
-1. **Update Medicine Costs**
-   - Updates the cost of medicines used in surgeries performed by doctors with a specific role to the average cost of those medicines.
+1. **Update Medicine Dosage**
+   - עדכון מינון התרופות המשמשות בניתוחים המבוצעים על ידי רופאים בעלי תפקיד ספציפי למינון הממוצע של אותן תרופות.
    ```sql
    UPDATE Medicine m
-   SET m.Cost = (
-     SELECT AVG(m2.Cost)
+   SET m.Dosage = (
+     SELECT AVG(m2.Dosage)
      FROM Medicine m2
      JOIN Used_In ui ON m2.MedicineID = ui.MedicineID
      JOIN Surgery s ON ui.SurgeryID = s.SurgeryID
      JOIN Doctor d ON s.DoctorID = d.DoctorID
-     WHERE d.Role = 'Chief of Surgery'
+     WHERE d.Position =  'Senior'
    )
    WHERE m.MedicineID IN (
      SELECT m3.MedicineID
@@ -118,12 +116,12 @@ This README provides an overview of several database queries designed for analyz
      JOIN Used_In ui2 ON m3.MedicineID = ui2.MedicineID
      JOIN Surgery s2 ON ui2.SurgeryID = s2.SurgeryID
      JOIN Doctor d2 ON s2.DoctorID = d2.DoctorID
-     WHERE d2.Role = 'Chief of Surgery'
+     WHERE d2.position = 'senior'
    );
    ```
 
 2. **Update Nurse Start Dates**
-   - Updates the start date of nurses who participated in more than one surgery to the date of their first surgery.
+   - מעדכן את תאריך התחלת העבודה של אחיות שהשתתפו ביותר מניתוח אחד למועד הניתוח הראשון
    ```sql
    UPDATE Nurse n
    SET n.StartDate = (
@@ -142,7 +140,7 @@ This README provides an overview of several database queries designed for analyz
 ### PARAMSELECT Queries
 
 1. **Surgeries by Doctor Specialty and Patient Age**
-   - Finds surgeries by a doctor with a specific specialty, where the patient is older than a given age and the surgery used a medicine costing more than a specified amount.
+   - מוצא ניתוחים על ידי רופא עם התמחות ספציפית, כאשר המטופל מבוגר מגיל נתון ובניתוח נעשה שימוש בתרופה שהמינון יותר ממינון מוגדר
    ```sql
    SELECT s.SurgeryID, s.SurgeryDate, s.SurgeryType, p.FirstName AS PatientFirstName, p.LastName AS PatientLastName, d.FirstName AS DoctorFirstName, d.LastName AS DoctorLastName, m.MedicineName, m.Cost AS MedicineCost
    FROM Surgery s
@@ -157,7 +155,7 @@ This README provides an overview of several database queries designed for analyz
    ```
 
 2. **Top N Nurses by Surgery Type**
-   - Finds the top N nurses who assisted in the most surgeries of a specific type within a date range.
+   - מוצא מספר אחיוות לפי הזנת המשתמש שהשתתפו בהכי הרבה ניתוחים בטווח מסויים 
    ```sql
    SELECT * FROM (
      SELECT n.NurseID, n.FirstName, n.LastName, COUNT(*) AS SurgeryCount
@@ -172,7 +170,7 @@ This README provides an overview of several database queries designed for analyz
    ```
 
 3. **Surgery Room Usage**
-   - Lists surgery rooms used for a specific surgery type more than the average usage for that type, within a specified date range.
+   -  מפרט את חדרי הניתוח המשמשים לסוג ניתוח ספציפי יותר מהשימוש הממוצע לסוג זה, בטווח תאריכים מוגדר על ידי המשתמש
    ```sql
    WITH RoomUsage AS ( -- This CTE calculates the usage count of each surgery room for a specific surgery type and date range
    SELECT sr.RoomID, sr.Location, sr.RoomType, COUNT(*) AS UsageCount
@@ -194,7 +192,7 @@ This README provides an overview of several database queries designed for analyz
    ORDER BY ru.UsageCount DESC;
    ```
 4. **Nurse Diversity Metrics**
-   - Finds nurses who worked with the most diverse set of doctors and surgery types, calculated from recent surgeries.
+   - מוצא אחיות שעבדו עם המערך המגוון ביותר של רופאים וסוגי ניתוחים, מחושב מהניתוחים אחרונים
    ```sql
    WITH NurseDiversity AS ( -- This CTE calculates diversity metrics for each nurse based on recent surgeries
    SELECT n.NurseID, n.FirstName, n.LastName,
