@@ -132,21 +132,29 @@ WHERE d.DoctorID IN (
 
 
 2. **Update Nurse Start Dates**
-   - מעדכן את תאריך התחלת העבודה של אחיות שהשתתפו ביותר מניתוח אחד למועד הניתוח הראשון
+   - השאילתה מעדכנת את תאריך תחילת העבודה (StartDate) של אחיות כך שתשקף את תאריך הניתוח הראשון שביצעו עם מטופלים שנולדו בשנת 1985. אם אין תאריך כזה, נשאר התאריך המקורי.
    ```sql
-   UPDATE Nurse n
-   SET n.StartDate = (
-     SELECT MIN(s.SurgeryDate)
-     FROM Surgery s
-     WHERE s.NurseID = n.NurseID
+  
+   SET StartDate = NVL(
+    (
+        SELECT MIN(s.SurgeryDate)
+        FROM Surgery s
+        JOIN Patient p ON s.PatientID = p.PatientID
+        WHERE EXTRACT(YEAR FROM p.BirthDate) = 1985
+            AND s.NurseID = n.NurseID
+    ),
+    n.StartDate
    )
    WHERE n.NurseID IN (
-     SELECT NurseID
-     FROM Surgery
-     GROUP BY NurseID
-     HAVING COUNT(SurgeryID) > 1
-   );
+    SELECT DISTINCT s.NurseID
+    FROM Surgery s
+    JOIN Patient p ON s.PatientID = p.PatientID
+    WHERE EXTRACT(YEAR FROM p.BirthDate) = 1985
+);
    ```
+   ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/UpdateProof2.jpg)
+
+
 
 ### PARAMSELECT Queries
 
