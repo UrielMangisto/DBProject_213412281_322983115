@@ -226,6 +226,7 @@ This README provides an overview of several database queries designed for analyz
    ALTER TABLE Doctor
    MODIFY Position VARCHAR2(30) DEFAULT 'Junior';
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/CONSTRAINTVIO2.jpg)
 
 ### 3. **CHECK Constraint on SurgeryType in Surgery Table**
 
@@ -233,3 +234,5 @@ This README provides an overview of several database queries designed for analyz
    ALTER TABLE Surgery
    ADD CONSTRAINT chk_surgery_type CHECK (SurgeryType IN ('Short_surgery','Intermediate_surgerie','Long_surgery'));
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/CONSTRAINTVIO3.jpg)
+
