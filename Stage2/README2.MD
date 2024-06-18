@@ -164,7 +164,7 @@ WHERE d.DoctorID IN (
      AND m.Cost > &Enter_Minimum_Medicine_Cost
    ORDER BY s.SurgeryDate DESC;
    ```
-![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof1.png)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof1.jpg)
 
 
 2. **Top N Nurses by Surgery Type**
@@ -181,7 +181,7 @@ WHERE d.DoctorID IN (
    )
    WHERE ROWNUM <= &Enter_Top_N_Nurses;
    ```
-![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof2.png)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof2.jpg)
 
 
 3. **Surgery Room Usage**
@@ -206,7 +206,7 @@ WHERE d.DoctorID IN (
    WHERE ru.UsageCount > au.AvgUsage
    ORDER BY ru.UsageCount DESC;
    ```
-![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof3.png)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof3.jpg)
 
 
 4. **Nurse Diversity Metrics**
@@ -229,7 +229,7 @@ WHERE d.DoctorID IN (
    ORDER BY DiversityScore DESC
    FETCH FIRST &Enter_Top_N_Nurses ROWS ONLY;
    ```
-![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof4.png)
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/ParamProof4.jpg)
 
 
 
