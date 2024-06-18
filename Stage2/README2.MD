@@ -17,6 +17,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY d.FirstName, d.LastName, EXTRACT(MONTH FROM s.SurgeryDate), EXTRACT(YEAR FROM s.SurgeryDate)
    ORDER BY d.FirstName, d.LastName, Year, Month;
    ```
+   Stage2/Images/Select1Proof.png
 
 2. **Doctors with Above-Average Surgeries**
    - מפרט רופאים שביצעו יותר ניתוחים מהממוצע, כולל התמחות, מספר ניתוחים וגיל ממוצע של המטופל
@@ -37,6 +38,7 @@ This README provides an overview of several database queries designed for analyz
       JOIN AverageSurgeryCount a ON d.SurgeryCount > a.AvgCount
       ORDER BY d.SurgeryCount DESC;
       ```
+   Stage2/Images/Select2Proof.png
 
 3. **Patient Surgery and Medicine Details**
    - מציג את פרטי המטופלים, מספר הניתוחים, תרופות שונות שניתנו והמינון הממוצע.
@@ -49,6 +51,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY p.FirstName, p.LastName, p.BirthDate
    ORDER BY SurgeryCount DESC, UniqueMedicines DESC;
    ```
+   Stage2/Images/Select2Proof.png
 
 4. **Specialty Surgery and Medicine Statistics**
    - עבור כל התמחות רפואית, מציג את מספר הניתוחים הממוצע לרופא ואת המספר המרבי של תרופות בשימוש במינון גבוה מהממוצע.
@@ -65,6 +68,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY Speciality
    ORDER BY AvgSurgeryCount DESC;
    ```
+   Stage2/Images/Select4Proof.png
 
 ### DELETE Queries
 
@@ -88,7 +92,7 @@ This README provides an overview of several database queries designed for analyz
        )
    );
    ```
-
+  
 2. **Delete Patients without Surgeries**
    - מוחק מטופלים שלא עברו ניתוחים ונולדו לפני תאריך מסוים
    ```sql
@@ -96,6 +100,8 @@ This README provides an overview of several database queries designed for analyz
    WHERE PatientID NOT IN (SELECT DISTINCT PatientID FROM Surgery)
      AND BirthDate < TO_DATE('01-01-1970', 'DD-MM-YYYY');
    ```
+   Stage2/Images/DeleteProofB2.jpg
+   Stage2/Images/DeleteProofA2.jpg
 
 ### UPDATE Queries
 
