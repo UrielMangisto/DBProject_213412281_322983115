@@ -1,16 +1,21 @@
--- This query updates the StartDate for nurses who have assisted in more than one surgery
--- to the date of their earliest surgery
+-- Update the StartDate for nurses in the Nurse table
 UPDATE Nurse n
-SET StartDate = ( -- This subquery finds the earliest surgery date for each nurse
-   SELECT MIN(s.SurgeryDate)
-   FROM Surgery s
-   WHERE s.NurseID = n.NurseID -- Match the nurse ID with the surgeries they assisted in
+SET StartDate = NVL(
+    (
+        -- Subquery to find the earliest surgery date for nurses where the patient was born in 1985
+        SELECT MIN(s.SurgeryDate)
+        FROM Surgery s
+        JOIN Patient p ON s.PatientID = p.PatientID
+        WHERE EXTRACT(YEAR FROM p.BirthDate) = 1985
+            AND s.NurseID = n.NurseID
+    ),
+    -- If no such surgery exists, keep the original StartDate
+    n.StartDate
 )
-WHERE EXISTS ( -- This subquery checks if the nurse has assisted in more than one surgery
-   SELECT 1
-   FROM Surgery s
-   WHERE s.NurseID = n.NurseID
-   GROUP BY s.NurseID
-   HAVING COUNT(DISTINCT s.SurgeryID) > 1 -- Count the distinct surgery IDs for each nurse
-)
-COMMIT; -- Commit the changes to the database
+-- Apply the update only to nurses who participated in surgeries with patients born in 1985
+WHERE n.NurseID IN (
+    SELECT DISTINCT s.NurseID
+    FROM Surgery s
+    JOIN Patient p ON s.PatientID = p.PatientID
+    WHERE EXTRACT(YEAR FROM p.BirthDate) = 1985
+);
