@@ -1,4 +1,3 @@
-```markdown
 # Stage 2 - Database Project
 
 ## Table of Contents
