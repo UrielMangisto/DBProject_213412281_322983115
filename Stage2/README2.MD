@@ -17,6 +17,7 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY d.FirstName, d.LastName, EXTRACT(MONTH FROM s.SurgeryDate), EXTRACT(YEAR FROM s.SurgeryDate)
    ORDER BY d.FirstName, d.LastName, Year, Month;
    ```
+![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select1Proof.png)
 
 2. **Doctors with Above-Average Surgeries**
    - מפרט רופאים שביצעו יותר ניתוחים מהממוצע, כולל התמחות, מספר ניתוחים וגיל ממוצע של המטופל
@@ -37,6 +38,7 @@ This README provides an overview of several database queries designed for analyz
       JOIN AverageSurgeryCount a ON d.SurgeryCount > a.AvgCount
       ORDER BY d.SurgeryCount DESC;
       ```
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select2Proof.png)
 
 3. **Patient Surgery and Medicine Details**
    - מציג את פרטי המטופלים, מספר הניתוחים, תרופות שונות שניתנו והמינון הממוצע.
@@ -49,11 +51,14 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY p.FirstName, p.LastName, p.BirthDate
    ORDER BY SurgeryCount DESC, UniqueMedicines DESC;
    ```
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select3Proof.png)
+
 
 4. **Specialty Surgery and Medicine Statistics**
    - עבור כל התמחות רפואית, מציג את מספר הניתוחים הממוצע לרופא ואת המספר המרבי של תרופות בשימוש במינון גבוה מהממוצע.
-   WITH DoctorStats AS (
-     SELECT d.Speciality, d.DoctorID, COUNT(s.SurgeryID) AS SurgeryCount, COUNT(CASE WHEN m.Dosage > (SELECT AVG(Dosage) FROM Medicine) THEN 1 END) AS HighDosageMedicines
+   ```sql
+     WITH DoctorStats AS (
+     SELECT d.Speciality, d.DoctorID, COUNT(s.SurgeryID) AS SurgeryCount, COUNT(CASE WHEN                m.Dosage > (SELECT AVG(Dosage) FROM Medicine) THEN 1 END) AS HighDosageMedicines
      FROM Doctor d
      JOIN Surgery s ON d.DoctorID = s.DoctorID
      JOIN Used_In ui ON s.SurgeryID = ui.SurgeryID
@@ -65,6 +70,9 @@ This README provides an overview of several database queries designed for analyz
    GROUP BY Speciality
    ORDER BY AvgSurgeryCount DESC;
    ```
+
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/Select4Proof.png)
+
 
 ### DELETE Queries
 
@@ -88,7 +96,7 @@ This README provides an overview of several database queries designed for analyz
        )
    );
    ```
-
+  
 2. **Delete Patients without Surgeries**
    - מוחק מטופלים שלא עברו ניתוחים ונולדו לפני תאריך מסוים
    ```sql
@@ -96,6 +104,12 @@ This README provides an overview of several database queries designed for analyz
    WHERE PatientID NOT IN (SELECT DISTINCT PatientID FROM Surgery)
      AND BirthDate < TO_DATE('01-01-1970', 'DD-MM-YYYY');
    ```
+   ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofB2.png)
+  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofA2.png)
+
+
+
+
 
 ### UPDATE Queries
 
