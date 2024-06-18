@@ -213,3 +213,22 @@ This README provides an overview of several database queries designed for analyz
    ORDER BY DiversityScore DESC
    FETCH FIRST &Enter_Top_N_Nurses ROWS ONLY;
    ```
+## Constraints
+### 1. **CHECK Constraint on Dosage in Medicine Table**
+   ```sql
+   ALTER TABLE Medicine
+   ADD CONSTRAINT chk_medicine_dosage_positive CHECK (Dosage > 0);
+   ```
+
+### 2. **DEFAULT Constraint on Position in Doctor Table**
+   ```sql
+   ALTER TABLE Doctor
+   MODIFY Position VARCHAR2(30) DEFAULT 'Junior';
+   ```
+
+### 3. **CHECK Constraint on SurgeryType in Surgery Table**
+
+   ```sql
+   ALTER TABLE Surgery
+   ADD CONSTRAINT chk_surgery_type CHECK (SurgeryType IN ('Short_surgery','Intermediate_surgerie','Long_surgery'));
+   ```
