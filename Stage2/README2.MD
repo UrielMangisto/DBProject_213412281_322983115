@@ -96,6 +96,7 @@ This README provides an overview of several database queries designed for analyz
        )
    );
    ```
+ ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofA1.jpg)
   
 2. **Delete Patients without Surgeries**
    - מוחק מטופלים שלא עברו ניתוחים ונולדו לפני תאריך מסוים
@@ -105,7 +106,7 @@ This README provides an overview of several database queries designed for analyz
      AND BirthDate < TO_DATE('01-01-1970', 'DD-MM-YYYY');
    ```
  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofB2.jpg)
-  ![Example Image](https://github.com/UrielMangisto/DBProject_2281_3115/blob/main/Stage2/Images/DeleteProofA2.jpg)
+
 
 
 
