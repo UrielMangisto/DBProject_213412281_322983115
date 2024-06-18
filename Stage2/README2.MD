@@ -20,22 +20,23 @@ This README provides an overview of several database queries designed for analyz
 
 2. **Doctors with Above-Average Surgeries**
    - מפרט רופאים שביצעו יותר ניתוחים מהממוצע, כולל התמחות, מספר ניתוחים וגיל ממוצע של המטופל
-   WITH DoctorSurgeryStats AS (
+      ```sql
+      WITH DoctorSurgeryStats AS (
      SELECT d.DoctorID, d.FirstName, d.LastName, d.Speciality, COUNT(s.SurgeryID) AS SurgeryCount, AVG(MONTHS_BETWEEN(SYSDATE, p.BirthDate)/12) AS AvgPatientAge
      FROM Doctor d
      JOIN Surgery s ON d.DoctorID = s.DoctorID
      JOIN Patient p ON s.PatientID = p.PatientID
      GROUP BY d.DoctorID, d.FirstName, d.LastName, d.Speciality
-   ),
-   AverageSurgeryCount AS (
-     SELECT AVG(SurgeryCount) AS AvgCount
-     FROM DoctorSurgeryStats
-   )
-   SELECT d.FirstName, d.LastName, d.Speciality, d.SurgeryCount, d.AvgPatientAge
-   FROM DoctorSurgeryStats d
-   JOIN AverageSurgeryCount a ON d.SurgeryCount > a.AvgCount
-   ORDER BY d.SurgeryCount DESC;
-   ```
+      ),
+      AverageSurgeryCount AS (
+        SELECT AVG(SurgeryCount) AS AvgCount
+        FROM DoctorSurgeryStats
+      )
+      SELECT d.FirstName, d.LastName, d.Speciality, d.SurgeryCount, d.AvgPatientAge
+      FROM DoctorSurgeryStats d
+      JOIN AverageSurgeryCount a ON d.SurgeryCount > a.AvgCount
+      ORDER BY d.SurgeryCount DESC;
+      ```
 
 3. **Patient Surgery and Medicine Details**
    - מציג את פרטי המטופלים, מספר הניתוחים, תרופות שונות שניתנו והמינון הממוצע.
