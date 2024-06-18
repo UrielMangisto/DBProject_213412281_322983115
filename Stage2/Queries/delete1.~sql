@@ -19,3 +19,4 @@ WHERE SurgeryID IN (
         AND n.StartDate >= ADD_MONTHS(SYSDATE, -24)
     )
 );
+COMMIT;

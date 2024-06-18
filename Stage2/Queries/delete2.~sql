@@ -8,3 +8,4 @@ WHERE PatientID NOT IN (
     FROM Surgery
 )
 AND BirthDate < TO_DATE('1970-01-01', 'YYYY-MM-DD');
+COMMIT;
