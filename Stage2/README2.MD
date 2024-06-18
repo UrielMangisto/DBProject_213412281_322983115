@@ -182,17 +182,17 @@ This README provides an overview of several database queries designed for analyz
      AND s.SurgeryDate BETWEEN TO_DATE('&Enter_Start_Date', 'DD-MM-YYYY') 
                             AND TO_DATE('&Enter_End_Date', 'DD-MM-YYYY')
    GROUP BY sr.RoomID, sr.Location, sr.RoomType
-),
-AverageUsage AS (
-   SELECT AVG(UsageCount) AS AvgUsage
-   FROM RoomUsage
-)
-SELECT ru.RoomID, ru.Location, ru.RoomType, ru.UsageCount
-FROM RoomUsage ru
-CROSS JOIN AverageUsage au
-WHERE ru.UsageCount > au.AvgUsage
-ORDER BY ru.UsageCount DESC;
-```
+   ),
+   AverageUsage AS (
+      SELECT AVG(UsageCount) AS AvgUsage
+      FROM RoomUsage
+   )
+   SELECT ru.RoomID, ru.Location, ru.RoomType, ru.UsageCount
+   FROM RoomUsage ru
+   CROSS JOIN AverageUsage au
+   WHERE ru.UsageCount > au.AvgUsage
+   ORDER BY ru.UsageCount DESC;
+   ```
 4. **Nurse Diversity Metrics**
    - Finds nurses who worked with the most diverse set of doctors and surgery types, calculated from recent surgeries.
    ```sql
