@@ -6,15 +6,15 @@ IS
     v_medicine_name VARCHAR2(200);
     v_dosage NUMBER;
     
-    -- τψξθψιν μϊζξεο πιϊεη ηγω
-    v_new_surgery_date DATE := SYSDATE + 7; -- ωαες ξδιεν
+    -- Χ¤Χ¨ΧΧΧ¨Χ™Χ ΧΆΧ‘Χ•Χ¨ Χ”Χ Χ™ΧªΧ•Χ— Χ”Χ—Χ“Χ©
+    v_new_surgery_date DATE := SYSDATE + 7; -- Χ©Χ‘Χ•ΧΆ ΧΧ”Χ™Χ•Χ
     v_new_surgery_type VARCHAR2(30) := 'Short_surgery';
     v_room_id NUMBER := 1;
     v_patient_id NUMBER := 1;
     v_doctor_id NUMBER := 1;
     v_nurse_id NUMBER := 1;
 BEGIN
-    -- χψιΰδ μτψεφγεψδ schedule_surgery
+    -- Χ”Χ¤ΧΆΧΧª Χ”Χ¤Χ¨Χ•Χ¦Χ“Χ•Χ¨Χ” schedule_surgery
     BEGIN
         schedule_surgery(
             v_new_surgery_date,
@@ -31,10 +31,43 @@ BEGIN
             RETURN;
     END;
     
-    -- χαμϊ δ-ID ωμ δπιϊεη δηγω ωπχας
+    -- Χ§Χ‘ΧΧª Χ”-ID Χ©Χ Χ”Χ Χ™ΧªΧ•Χ— Χ©Χ–Χ” ΧΆΧªΧ” Χ Χ•Χ¦Χ¨
     SELECT MAX(SurgeryID) INTO v_new_surgery_id FROM Surgery;
     
-    -- δφβϊ ξιγς ςμ δπιϊεη δηγω ωϊεζξο
+    -- Χ”Χ•Χ΅Χ¤Χª 3 Χ¨Χ©Χ•ΧΧ•Χª USED_IN
+    DECLARE
+        TYPE medicine_array IS TABLE OF NUMBER INDEX BY PLS_INTEGER;
+        v_medicines medicine_array;
+        v_count NUMBER := 0;
+    BEGIN
+        -- Χ‘Χ—Χ™Χ¨Χª 3 ΧªΧ¨Χ•Χ¤Χ•Χª Χ©Χ•Χ Χ•Χª
+        FOR med IN (SELECT DISTINCT MedicineID 
+                    FROM Medicine 
+                    WHERE MedicineID NOT IN (SELECT MedicineID FROM Used_In WHERE SurgeryID = v_new_surgery_id)
+                    ORDER BY DBMS_RANDOM.VALUE)
+        LOOP
+            v_count := v_count + 1;
+            v_medicines(v_count) := med.MedicineID;
+            EXIT WHEN v_count = 3;
+        END LOOP;
+        
+        -- Χ‘Χ“Χ™Χ§Χ” Χ©Χ™Χ© ΧΧ΅Χ¤Χ™Χ§ ΧªΧ¨Χ•Χ¤Χ•Χª
+        IF v_count < 3 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Not enough distinct medicines available for this surgery');
+        END IF;
+        
+        -- Χ”Χ›Χ Χ΅Χª 3 Χ¨Χ©Χ•ΧΧ•Χª Χ—Χ“Χ©Χ•Χª Χ-Used_In
+        FOR i IN 1..3 LOOP
+            INSERT INTO Used_In (MedicineID, SurgeryID) VALUES (v_medicines(i), v_new_surgery_id);
+        END LOOP;
+        
+        DBMS_OUTPUT.PUT_LINE('3 new USED_IN records with different medicines have been inserted for SurgeryID: ' || v_new_surgery_id);
+    EXCEPTION
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('An error occurred while inserting USED_IN records: ' || SQLERRM);
+    END;
+    
+    -- Χ”Χ¦Χ’Χª Χ¤Χ¨ΧΧ™ Χ”Χ Χ™ΧªΧ•Χ— Χ”Χ—Χ“Χ© Χ©Χ Χ•Χ¦Χ¨
     DBMS_OUTPUT.PUT_LINE('New surgery details:');
     FOR surgery_rec IN (SELECT * FROM Surgery WHERE SurgeryID = v_new_surgery_id) LOOP
         DBMS_OUTPUT.PUT_LINE('Surgery ID: ' || surgery_rec.SurgeryID);
@@ -46,7 +79,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Nurse ID: ' || surgery_rec.NurseID);
     END LOOP;
     
-    -- χψιΰδ μτεπχφιδ get_medicines_for_surgery ςαεψ δπιϊεη δηγω
+    -- Χ”Χ¤ΧΆΧΧª Χ”Χ¤Χ•Χ Χ§Χ¦Χ™Χ” get_medicines_for_surgery ΧΆΧ‘Χ•Χ¨ Χ”Χ Χ™ΧªΧ•Χ— Χ”Χ—Χ“Χ©
     v_medicines := get_medicines_for_surgery(v_new_surgery_id);
     
     DBMS_OUTPUT.PUT_LINE('Medicines required for the new surgery:');
@@ -59,14 +92,13 @@ BEGIN
     END LOOP;
     CLOSE v_medicines;
     
-    
 EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
 END;
 /
 
--- δψφϊ δϊελπιϊ
+-- Χ”Χ¤ΧΆΧΧª Χ”ΧªΧ•Χ›Χ Χ™Χª
 BEGIN
     main_program_2;
 END;
