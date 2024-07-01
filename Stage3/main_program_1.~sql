@@ -1,6 +1,6 @@
 CREATE OR REPLACE PROCEDURE main_program_1
 IS
-    v_doctor_id NUMBER :=15; -- נניח שזה ה-ID של הרופא שאנו רוצים לבדוק
+    v_doctor_id NUMBER := 1; -- נניח שזה ה-ID של הרופא שאנו רוצים לבדוק
     v_surgery_count NUMBER;
     v_new_position VARCHAR2(30);
 BEGIN
