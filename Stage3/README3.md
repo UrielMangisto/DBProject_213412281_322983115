@@ -43,7 +43,6 @@ END;
 /
 ```
 
-- **הוכחה**: הפונקציה רצה בהצלחה והחזירה את מספר הניתוחים.
 
 #### פונקציה: `get_medicines_for_surgery`
 
@@ -70,7 +69,6 @@ END;
 /
 ```
 
-- **הוכחה**: הפונקציה רצה בהצלחה והחזירה רשימה של תרופות.
 
 #### פרוצדורה: `schedule_surgery`
 
@@ -150,7 +148,6 @@ END;
 /
 ```
 
-- **הוכחה**: הפרוצדורה רצה בהצלחה ותזמנה ניתוח חדש.
 
 #### פרוצדורה: `update_doctor_position`
 
@@ -190,7 +187,6 @@ END;
 /
 ```
 
-- **הוכחה**: הפרוצדורה רצה בהצלחה ועדכנה את מיקום הרופא.
 
 #### תוכנית ראשית: `main_program_1`
 
@@ -231,6 +227,9 @@ END;
 ```
 
 - **הוכחה**: תמונת "לפני" ותמונת "אחרי" של הרופא עם ID = 15.
+![DoctorEmmieBefore](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/aae80256-187f-4837-82ba-8e5f0d41a8d3)
+![DoctorEmmieAfter](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/ea44f07a-8095-47de-8cda-f43467307fdc)
+
 
 #### תוכנית ראשית: `main_program_2`
 
@@ -273,5 +272,11 @@ END;
 ```
 
 - **הוכחה**: תמונות "לפני" ו"אחרי" של טבלאות `USED_IN` ו-`SURGERY` כדי להראות שנוסף ניתוח חדש ושמספר השורות השתנה בטבלת השימושים (ושהשימושים שנוספו הם באותו ניתוח שהוסף).
+![UsedInBefor](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/349d4bdd-1b75-4172-8aa6-f7e404f363b3)
+![UsedInAfter](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/f0fe2542-5e9f-4fa0-a005-4fd942d7b595)
+![SurgeryBefore](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/3eb5d137-e47c-4671-8609-81ee493cf67b)
+![SurgeryAfter](https://github.com/UrielMangisto/DBProject_2281_3115/assets/116590126/07a41b47-3c39-48aa-a79b-4d45276dd36e)
+
+  
 
 ---
