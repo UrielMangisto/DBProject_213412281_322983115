@@ -26,7 +26,7 @@
 
 ![image](https://github.com/user-attachments/assets/3010a972-cb92-48a5-a4f6-ececf2bb34a8)
 
-## ניתוח DSD ו-ERD
+## ניתוח מעבר ב DSD ל ERD
 
 1. **ניתוח ה-DSD**:
    התחלנו בניתוח ה-Data Structure Diagram (DSD) שהופק מקוד ה-PL/SQL. ה-DSD מציג את המבנה הלוגי של הנתונים כפי שהם מאורגנים בקוד, כולל טבלאות, עמודות, וקשרים בסיסיים.
