@@ -12,25 +12,21 @@
 
 ### DSD של המידע שנכנס
 
-![DSD Image](path/to/dsd-image)
 ![image](https://github.com/user-attachments/assets/54da6467-7867-4427-961f-e301381914c4)
 
 
 ### ERD של המידע הנכנס למערכת
 
-![ERD Image](path/to/erd-image)
 ![image](https://github.com/user-attachments/assets/e6fe032e-397d-4730-a8b7-f5e01f5d3b9b)
 
 
 ### DSD של המערכת שלנו 
 
-![DSD Image](path/to/dsd-image)
 ![image](https://github.com/user-attachments/assets/862a83bd-06b0-44ac-94ed-fb7659400dbf)
 
 
 ### ERD של המערכת שלנו
 
-![ERD Image](path/to/erd-image)
 ![image](https://github.com/user-attachments/assets/3010a972-cb92-48a5-a4f6-ececf2bb34a8)
 
 
