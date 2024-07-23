@@ -10,25 +10,27 @@
 
 1. **Patient**
    - תכונות: `PatientID`, `FullName`, `Gender`, `ContactInfo`, `Insurance`
-   - איחוד טבלאות המטופלים ליצירת מאגר מידע אחד ומקיף, כולל שדות חדשים לניהול טוב יותר.
+   - **שינויים:** איחדנו את שם פרטי ושם משפחה לשדה `FullName`. הוספנו שדות `Gender` ו-`Insurance`.
 
 2. **Doctor**
    - תכונות: `DoctorID`, `FullName`, `Specialization`, `ContactInfo`
-   - איחוד טבלאות הרופאים לניהול מרכזי, עם הוספת פרטי קשר.
+   - **שינויים:** איחדנו שם פרטי ושם משפחה לשדה `FullName`. הוספנו שדה `ContactInfo`.
 
 3. **Appointment**
    - תכונות: `AppointmentID`, `PatientID`, `DoctorID`, `Date`, `Time`, `Type`
-   - הוספת טבלת פגישות לניהול כל הפגישות המתוכננות, כולל ניתוחים ובדיקות רגילות.
+   - **שינויים:** הוספנו שדה `Type` לציון סוג הפגישה (רגילה/ניתוח).
 
 4. **MedicalRecord**
    - תכונות: `RecordID`, `PatientID`, `Diagnosis`, `Treatment`, `TestResults`, `Allergies`
-   - טבלה חדשה לשמירת המידע הרפואי של המטופל.
+   - **שינויים:** טבלה חדשה לניהול כל המידע הרפואי של המטופל.
 
 5. **Treatment**
    - תכונות: `TreatmentID`, `PatientID`, `DoctorID`, `Date`, `Details`, `Cost`
+   - **שינויים:** הוספנו שדות `Details` ו-`Cost` לניהול עלות הטיפול.
 
 6. **Billing**
    - תכונות: `BillingID`, `PatientID`, `Amount`, `Status`, `Date`
+   - **שינויים:** טבלה חדשה לניהול חיובים, כולל שדות `Status` ו-`Date`.
 
 ### שינויים במבנה הנתונים
 
