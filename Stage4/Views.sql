@@ -1,0 +1,96 @@
+-- Creating a Surgery-focused view named SurgeryOverview
+CREATE VIEW SurgeryOverview AS
+SELECT 
+    s.SurgeryID,        -- Unique identifier for each surgery
+    s.SurgeryDate,      -- Date when the surgery was performed
+    s.SurgeryType,      -- Type or category of the surgery
+    p.PatientID,        -- Unique identifier for the patient
+    p.FullName AS PatientName,  -- Full name of the patient
+    d.DoctorID,         -- Unique identifier for the doctor
+    d.FullName AS DoctorName,   -- Full name of the doctor
+    d.Speciality,       -- Doctor's medical speciality
+    sr.RoomID,          -- Unique identifier for the surgery room
+    sr.Location AS RoomLocation,  -- Physical location of the surgery room
+    m.MedicineID,       -- Unique identifier for medicine used (if any)
+    m.MedicineName      -- Name of the medicine used (if any)
+FROM 
+    Surgery s
+    JOIN Patient p ON s.PatientID = p.PatientID  -- Linking surgery to patient
+    JOIN Doctor d ON s.DoctorID = d.DoctorID     -- Linking surgery to doctor
+    JOIN Surgery_Room sr ON s.RoomID = sr.RoomID  -- Linking surgery to room
+    LEFT JOIN Used_In ui ON s.SurgeryID = ui.SurgeryID  -- Linking surgery to medicines used
+    LEFT JOIN Medicine m ON ui.MedicineID = m.MedicineID;  -- Getting medicine details
+-- Note: LEFT JOIN is used for Used_In1 and Medicine1 as not all surgeries might use medicines
+
+
+-- Query 1: Analyzing the number of surgeries by type in the last year
+SELECT SurgeryType, COUNT(*) AS SurgeryCount
+FROM SurgeryDetails
+WHERE SurgeryDate BETWEEN ADD_MONTHS(TRUNC(SYSDATE), -12) AND SYSDATE  -- Filtering surgeries from the last year
+GROUP BY SurgeryType
+ORDER BY SurgeryCount DESC;                   -- Sorting by number of surgeries in descending order
+
+-- Query 2: Identifying doctors performing a high number of surgeries
+SELECT DoctorName, COUNT(*) AS SurgeryCount
+FROM SurgeryDetails
+GROUP BY DoctorName
+HAVING COUNT(*) > 5                           -- Filtering doctors with more than 5 surgeries
+ORDER BY SurgeryCount DESC;                   -- Sorting by number of surgeries in descending order
+
+
+-- Creating an Appointment-focused view named AppointmentOverview
+CREATE VIEW AppointmentsOverview AS
+SELECT 
+    a.Appointment_ID,            -- Unique identifier for each appointment
+    a.Appointment_Date,          -- Date of the appointment
+    a.Reason_For_Visit,           -- Reason or purpose of the visit
+    p.PatientID,                -- Unique identifier for the patient
+    p.FullName AS PatientName,  -- Full name of the patient
+    p.Gender,                   -- Gender of the patient
+    p.Insurance,                -- Patient's insurance information
+    d.DoctorID,                 -- Unique identifier for the doctor
+    d.FullName AS DoctorName,   -- Full name of the doctor
+    d.Speciality,               -- Doctor's medical speciality
+    mr.Medical_Record_ID,         -- Unique identifier for the medical record
+    mr.Diagnosis,               -- Diagnosis given during the appointment (if any)
+    mr.Prescribed_Treatments     -- Treatments prescribed during the appointment (if any)
+FROM 
+    Appointment a
+    JOIN Patient p ON a.Patient_ID = p.PatientID  -- Linking appointment to patient
+    JOIN Doctor d ON a.Doctor_ID = d.DoctorID     -- Linking appointment to doctor
+    LEFT JOIN MedicalRecord mr ON p.PatientID = mr.Patient_ID;  -- Linking to medical record
+-- Note: LEFT JOIN is used for MedicalRecord1 as not all appointments might result in a new medical record entry
+
+
+-- Query 1: Appointments in the last six months
+SELECT 
+    Appointment_Date,  -- The date of the appointment
+    PatientName,       -- The name of the patient
+    DoctorName,        -- The name of the doctor
+    Reason_For_Visit   -- The reason for the visit
+FROM 
+    AppointmentsOverview  -- The view that contains appointment data
+WHERE 
+    Appointment_Date BETWEEN ADD_MONTHS(TRUNC(SYSDATE), -6) AND SYSDATE;
+    -- The appointment date is between six months ago and today
+    -- ADD_MONTHS(TRUNC(SYSDATE), -6) calculates the date exactly six months ago from today
+    -- TRUNC(SYSDATE) truncates the current date to midnight (the start of the current day)
+    -- SYSDATE represents the current date and time
+
+-- Query 2: Appointments with doctors from the busiest speciality
+SELECT 
+    Appointment_Date,
+    PatientName,
+    DoctorName,
+    Speciality,
+    Reason_For_Visit
+FROM 
+    AppointmentsOverview
+WHERE 
+    Speciality = (
+        SELECT Speciality
+        FROM AppointmentsOverview
+        GROUP BY Speciality
+        ORDER BY COUNT(*) DESC
+        FETCH FIRST 1 ROW ONLY
+    );
