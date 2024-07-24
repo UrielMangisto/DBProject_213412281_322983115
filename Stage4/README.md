@@ -242,10 +242,156 @@ rename Used_In1 to Used_In;
 ```
 
 
-# חלק ב- מבטים
-## נקודת מבט של בסיס הנתונים המקורי 
-### תיאור מילולי 
-מבט זה מת
+# חלק ב- מבטים ושאילתות
+כמובן! הנה התיאור והשליפות של המבט והשאילתות:
+
+### מבט: `SurgeryOverview`
+
+**תיאור המבט:**
+`SurgeryOverview` מספק מידע מרכזי על ניתוחים, כולל תאריך הניתוח, סוג הניתוח, פרטי המטופל והצוות הרפואי, מיקום חדר הניתוח ופרטי תרופות ששימשו.
+
+
+**הקוד:**
+```sql
+-- Creating a Surgery-focused view named SurgeryOverview
+CREATE VIEW SurgeryOverview AS
+SELECT 
+    s.SurgeryID,        -- Unique identifier for each surgery
+    s.SurgeryDate,      -- Date when the surgery was performed
+    s.SurgeryType,      -- Type or category of the surgery
+    p.PatientID,        -- Unique identifier for the patient
+    p.FullName AS PatientName,  -- Full name of the patient
+    d.DoctorID,         -- Unique identifier for the doctor
+    d.FullName AS DoctorName,   -- Full name of the doctor
+    d.Speciality,       -- Doctor's medical speciality
+    sr.RoomID,          -- Unique identifier for the surgery room
+    sr.Location AS RoomLocation,  -- Physical location of the surgery room
+    m.MedicineID,       -- Unique identifier for medicine used (if any)
+    m.MedicineName      -- Name of the medicine used (if any)
+FROM 
+    Surgery s
+    JOIN Patient p ON s.PatientID = p.PatientID  -- Linking surgery to patient
+    JOIN Doctor d ON s.DoctorID = d.DoctorID     -- Linking surgery to doctor
+    JOIN Surgery_Room sr ON s.RoomID = sr.RoomID  -- Linking surgery to room
+    LEFT JOIN Used_In ui ON s.SurgeryID = ui.SurgeryID  -- Linking surgery to medicines used
+    LEFT JOIN Medicine m ON ui.MedicineID = m.MedicineID;  -- Getting medicine details
+-- Note: LEFT JOIN is used for Used_In1 and Medicine1 as not all surgeries might use medicines
+```
+
+**שליפת נתונים מהמבט:**
+![image](https://github.com/user-attachments/assets/c2060ea6-ffa1-499c-b556-2e82e839e576)
+
+
+### שאילתות מהמבט `SurgeryOverview`
+
+**שאילתא 1: מספר הניתוחים לפי סוג בחודש האחרון**
+
+**תיאור:**
+מטרת השאילתא היא לנתח את מספר הניתוחים לפי סוגם שבוצעו בחודש האחרון.
+
+**קוד השאילתא:**
+```sql
+SELECT SurgeryType, COUNT(*) AS SurgeryCount
+FROM SurgeryOverview
+WHERE SurgeryDate >= ADD_MONTHS(SYSDATE, -1)
+GROUP BY SurgeryType
+ORDER BY SurgeryCount DESC;
+```
+
+**שאילתא 2: זיהוי רופאים שמבצעים מספר גבוה של ניתוחים**
+
+**תיאור:**
+מטרת השאילתא היא לזהות רופאים שביצעו יותר מ-5 ניתוחים ולהציג את מספר הניתוחים שבוצעו.
+
+**קוד השאילתא:**
+```sql
+SELECT DoctorName, COUNT(*) AS SurgeryCount
+FROM SurgeryOverview
+GROUP BY DoctorName
+HAVING COUNT(*) > 5
+ORDER BY SurgeryCount DESC;
+```
+
+### מבט: `AppointmentsOverview`
+
+**תיאור המבט:**
+`AppointmentsOverview` מכיל מידע על פגישות, כולל תאריך הפגישה, סיבת הביקור, פרטי המטופל והרופא, וכן אבחנות וטיפולים שניתנו.
+
+
+**הקוד:**
+```sql
+-- Creating an Appointment-focused view named AppointmentOverview
+CREATE VIEW AppointmentsOverview AS
+SELECT 
+    a.Appointment_ID,            -- Unique identifier for each appointment
+    a.Appointment_Date,          -- Date of the appointment
+    a.Reason_For_Visit,           -- Reason or purpose of the visit
+    p.PatientID,                -- Unique identifier for the patient
+    p.FullName AS PatientName,  -- Full name of the patient
+    p.Gender,                   -- Gender of the patient
+    p.Insurance,                -- Patient's insurance information
+    d.DoctorID,                 -- Unique identifier for the doctor
+    d.FullName AS DoctorName,   -- Full name of the doctor
+    d.Speciality,               -- Doctor's medical speciality
+    mr.Medical_Record_ID,         -- Unique identifier for the medical record
+    mr.Diagnosis,               -- Diagnosis given during the appointment (if any)
+    mr.Prescribed_Treatments     -- Treatments prescribed during the appointment (if any)
+FROM 
+    Appointment a
+    JOIN Patient p ON a.Patient_ID = p.PatientID  -- Linking appointment to patient
+    JOIN Doctor d ON a.Doctor_ID = d.DoctorID     -- Linking appointment to doctor
+    LEFT JOIN MedicalRecord mr ON p.PatientID = mr.Patient_ID;  -- Linking to medical record
+-- Note: LEFT JOIN is used for MedicalRecord1 as not all appointments might result in a new medical record entry
+```
+**שליפת נתונים מהמבט:**
+![image](https://github.com/user-attachments/assets/e7fe5ec8-a86e-4faa-9f23-5c25f5416d82)
+
+### שאילתות מהמבט `AppointmentsOverview`
+
+**שאילתא 1: פגישות בששת החודשים האחרונים**
+
+**תיאור:**
+השאילתא מציגה פגישות שהתקיימו בששת החודשים האחרונים, כולל תאריך הפגישה, שם המטופל והרופא, וסיבת הביקור.
+
+**קוד השאילתא:**
+```sql
+SELECT 
+    Appointment_Date, 
+    PatientName, 
+    DoctorName, 
+    Reason_For_Visit
+FROM 
+    AppointmentsOverview
+WHERE 
+    Appointment_Date BETWEEN ADD_MONTHS(TRUNC(SYSDATE), -6) AND SYSDATE;
+```
+
+**שאילתא 2: פגישות עם רופאים מההתמחות העמוסה ביותר**
+
+**תיאור:**
+השאילתא מזהה פגישות עם רופאים מההתמחות בעלת מספר הפגישות הגבוה ביותר.
+
+**קוד השאילתא:**
+```sql
+SELECT 
+    Appointment_Date,
+    PatientName,
+    DoctorName,
+    Speciality,
+    Reason_For_Visit
+FROM 
+    AppointmentsOverview
+WHERE 
+    Speciality = (
+        SELECT Speciality
+        FROM AppointmentsOverview
+        GROUP BY Speciality
+        ORDER BY COUNT(*) DESC
+        FETCH FIRST 1 ROW ONLY
+    );
+```
+
+
 
 
 
