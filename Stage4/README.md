@@ -80,7 +80,7 @@
 ## תהליך והפקודות
 
 בתהליך האינטגרציה נעשה שימוש בפקודות SQL למיזוג הנתונים.
-לדוגמה, איחוד טבלאות המטופלים התבצע באמצעות:
+ראשית, שינינו את כל שמות הטבלאות שלנו בכדי למנוע מצב של 'התנגשות' בין המידע שלנו למידע שקיבלנו.
 
 ```sql
 -- rename tebles
@@ -92,6 +92,85 @@ rename Surgery to Surgery1;
 rename Surgery_Room to Surgery_Room1;
 rename Used_In to Used_In1;
 ```
-שדכשגדכדכדגש
 
+לאחר מכן בדקנו את מספר הרשומות בעלות אותו מספר מזהה (ID) בטבלאות 'רופא' ו 'מטופל' (כלומר אין התנגשות במידע).
+```sql
+--count tables
+SELECT COUNT(*) FROM DOCTOR1;
+SELECT COUNT(*) FROM DOCTORS;
+
+SELECT COUNT(*) FROM PATIENT1;
+SELECT COUNT(*) FROM PATIENTS;
+
+
+--count differences
+SELECT * FROM DOCTORS D WHERE D.DOCTOR_ID NOT IN (SELECT DOCTORID FROM DOCTOR1); --ALL THE DOCTORS (400) ARE DIFFERENT
+
+
+SELECT * FROM PATIENTS P WHERE P.PATIENT_ID NOT IN (SELECT PATIENTID FROM PATIENT1);--ALL THE PATIENTS (400) ARE DIFFERENT
+```
+
+
+לפני איחוד הטבלאות של הישות 'רופא' ביצענו הכנה מקדימה: 
+- איחדנו בין השדות שם פרטי ושם משפחה לשדה אחד 'שם מלא'
+- הוספנו את השדה 'פרטי קשר' והגדרנו אותו כ Null.
+- הגדרנו את השדה המקורי 'תפקיד' כ Null
+  
+
+```sql
+--merge doctors and doctor1:
+
+--preprocessing doctor1:
+
+ALTER TABLE Doctor1
+ADD FullName VARCHAR2(61);
+
+UPDATE Doctor1
+SET FullName = FirstName || ' ' || LastName;
+
+ALTER TABLE Doctor1
+DROP COLUMN FirstName;
+
+ALTER TABLE Doctor1
+DROP COLUMN LastName;
+
+ALTER TABLE Doctor1
+ADD ContactInformation VARCHAR2(50) NULL;
+
+ALTER TABLE Doctor1 MODIFY Position VARCHAR2(30) NULL;
+```
+
+לאחר ההכנה המקידמה ביצענו את ההכנסה של כל הרשומות מטבלת 'Doctors' שקיבלנו לטבלת 'Doctor1' המקורית, כולל הכנסה של השדות החדשים.
+```sql
+--inserting:
+INSERT INTO Doctor1 (DoctorID, FullName, Speciality, StartDate, Position, ContactInformation)
+SELECT Doctor_ID, Name, Specialty, Date_of_Start_working, 'Unknown', Contact_Information
+FROM Doctors;
+```
+
+
+
+```sql
+--merge patients and patient1:
+
+--preprocessing patient1:
+
+ALTER TABLE Patient1
+ADD Gender VARCHAR2(10) NULL;
+ALTER TABLE Patient1
+ADD ContactInformation VARCHAR2(50) NULL;
+ALTER TABLE Patient1
+ADD Insurance VARCHAR2(10) NULL;
+
+ALTER TABLE Patient1
+ADD FullName VARCHAR2(61);
+
+UPDATE Patient1
+SET FullName = FirstName || ' ' || LastName;
+
+ALTER TABLE Patient1
+DROP COLUMN FirstName;
+ALTER TABLE Patient1
+DROP COLUMN LastName;
+```
 
