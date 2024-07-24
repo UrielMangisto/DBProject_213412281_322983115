@@ -83,6 +83,14 @@
 לדוגמה, איחוד טבלאות המטופלים התבצע באמצעות:
 
 ```sql
-ALTER TABLE `Patients`
-ADD `Gender` VARCHAR(10), 
-ADD `Insurance` VARCHAR(50);
+-- rename tebles
+rename Doctor to Doctor1;
+rename Nurse to Nurse1;
+rename Patient to Patient1;
+rename Medicine to Medicine1;
+rename Surgery to Surgery1;
+rename Surgery_Room to Surgery_Room1;
+rename Used_In to Used_In1;
+```
+
+
