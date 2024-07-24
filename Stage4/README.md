@@ -18,13 +18,16 @@
 
 ![image](https://github.com/user-attachments/assets/e6fe032e-397d-4730-a8b7-f5e01f5d3b9b)
 
-### DSD של המערכת שלנו
+### DSD של המערכת המשולבת 
 
-![image](https://github.com/user-attachments/assets/862a83bd-06b0-44ac-94ed-fb7659400dbf)
+![image]![image](https://github.com/user-attachments/assets/ee1ac701-3dc0-43d1-9e64-5a6e285cfecb)
 
-### ERD של המערכת שלנו
+)
 
-![image](https://github.com/user-attachments/assets/3010a972-cb92-48a5-a4f6-ececf2bb34a8)
+### ERD של המערכת המשולבת 
+
+![image (2)](https://github.com/user-attachments/assets/5086ffeb-dee7-49e6-9d71-22218c6065a0)
+
 
 ## ניתוח מעבר ב DSD ל ERD
 
