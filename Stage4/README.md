@@ -1,3 +1,9 @@
+# Surgery Room Management System
+Contributors: Uriel Mangisto 213412281, Omer Avidar 322983115
+
+## System: Hospital Data Management System
+### Selected Unit: Surgery Room Department
+
 # תוכן העניינים
 
 1. [תרשימי DSD ו-ERD](#תרשימי-DSD-ו-ERD)
