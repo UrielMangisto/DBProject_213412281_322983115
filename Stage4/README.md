@@ -13,12 +13,12 @@
 4. [תהליך והפקודות](#תהליך-והפקודות)
 
 5. [חלק ב- מבטים ושאילתות](#חלק-ב--מבטים-ושאילתות)
-     [מבט: SurgeryOverview](#מבט-SurgeryOverview)
-     [שליפת נתונים מהמבט](#שליפת-נתונים-מהמבט-SurgeryOverview)
-     [שאילתות מהמבט](#שאילתות-מהמבט-SurgeryOverview)
-     [מבט: AppointmentsOverview](#מבט-AppointmentsOverview)
-     [שליפת נתונים מהמבט](#שליפת-נתונים-מהמבט-AppointmentsOverview)
-     [שאילתות מהמבט](#שאילתות-מהמבט-AppointmentsOverview)
+     [מבט: SurgeryOverview](#מבט-SurgeryOverview)-
+     [שליפת נתונים מהמבט](#שליפת-נתונים-מהמבט-SurgeryOverview)-
+     [שאילתות מהמבט](#שאילתות-מהמבט-SurgeryOverview)-
+     [מבט: AppointmentsOverview](#מבט-AppointmentsOverview)-
+     [שליפת נתונים מהמבט](#שליפת-נתונים-מהמבט-AppointmentsOverview)-
+     [שאילתות מהמבט](#שאילתות-מהמבט-AppointmentsOverview)-
 
 ## תרשימי DSD ו-ERD
 
