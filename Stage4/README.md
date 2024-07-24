@@ -310,19 +310,21 @@ FROM
 
 ### שאילתות מהמבט `SurgeryOverview`
 
-**שאילתא 1: מספר הניתוחים לפי סוג בחודש האחרון**
+**שאילתא 1: מספר הניתוחים לפי סוג בשנה האחרונה**
 
 **תיאור:**
-מטרת השאילתא היא לנתח את מספר הניתוחים לפי סוגם שבוצעו בחודש האחרון.
+מטרת השאילתא היא לנתח את מספר הניתוחים לפי סוגם שבוצעו בשנה האחרונה.
 
 **קוד השאילתא:**
 ```sql
 SELECT SurgeryType, COUNT(*) AS SurgeryCount
 FROM SurgeryOverview
-WHERE SurgeryDate >= ADD_MONTHS(SYSDATE, -1)
+WHERE SurgeryDate >= ADD_MONTHS(SYSDATE, -12)
 GROUP BY SurgeryType
 ORDER BY SurgeryCount DESC;
 ```
+![image](https://github.com/user-attachments/assets/d92d74d1-32fe-49fc-a2b7-529c426f28a4)
+
 
 **שאילתא 2: זיהוי רופאים שמבצעים מספר גבוה של ניתוחים**
 
@@ -337,6 +339,7 @@ GROUP BY DoctorName
 HAVING COUNT(*) > 5
 ORDER BY SurgeryCount DESC;
 ```
+![image](https://github.com/user-attachments/assets/c4ec73b5-ccbd-43af-b29d-7bb226e77617)
 
 ### מבט: `AppointmentsOverview`
 
@@ -391,6 +394,7 @@ FROM
 WHERE 
     Appointment_Date BETWEEN ADD_MONTHS(TRUNC(SYSDATE), -6) AND SYSDATE;
 ```
+![image](https://github.com/user-attachments/assets/a648f751-20f2-4736-9835-25326f52254f)
 
 **שאילתא 2: פגישות עם רופאים מההתמחות העמוסה ביותר**
 
@@ -417,6 +421,7 @@ WHERE
     );
 ```
 
+![image](https://github.com/user-attachments/assets/33a4c42f-cc71-4d95-9afb-fa3c6a71997f)
 
 
 
