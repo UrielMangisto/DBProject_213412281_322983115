@@ -148,6 +148,14 @@ SELECT Doctor_ID, Name, Specialty, Date_of_Start_working, 'Unknown', Contact_Inf
 FROM Doctors;
 ```
 
+בדומה לטבלת 'Doctor' ביצענו את אותם תהליכים גם עבור טבלת 'Patient'
+-
+- הוספנו את השדה 'מגדר' והגדרנו אותו כ Null.
+- - הוספנו את השדה 'פרטי קשר' והגדרנו אותו כ Null.
+- הוספנו את השדה 'ביטוח' והגדרנו אותו כ Null.
+-  איחדנו בין השדות שם פרטי ושם משפחה לשדה אחד 'שם מלא'
+
+  
 
 
 ```sql
@@ -173,4 +181,73 @@ DROP COLUMN FirstName;
 ALTER TABLE Patient1
 DROP COLUMN LastName;
 ```
+
+
+לאחר ההכנה המקידמה ביצענו את ההכנסה של כל הרשומות מטבלת 'Patients' שקיבלנו לטבלת 'Patient1' המקורית, כולל הכנסה של השדות החדשים.
+
+
+```sql
+--inserting:
+INSERT INTO Patient1 (PatientID, FullName, BirthDate, Gender, ContactInformation, Insurance)
+SELECT Patient_ID, Name, Date_of_Birth, Gender, Contact_Information, Insurance
+FROM Patients;
+```
+
+על מנת למחוק את הטבלאות 'Patients' ו 'Doctors'  היינו  צריכים למחוק את האילוצים של הטבלאות שמגדירות את המספרים המזהים שלהן כמפתח זר
+
+```sql
+-- CONSTRAINTS CANCLETION
+ALTER TABLE Appointment DROP CONSTRAINT SYS_C008867;
+ALTER TABLE Appointment DROP CONSTRAINT SYS_C008866;
+ALTER TABLE MedicalRecord DROP CONSTRAINT SYS_C008875;
+ALTER TABLE Billing DROP CONSTRAINT SYS_C008889;
+```
+
+מחיקת הטבלאות לאחר הורדת האילוצים .
+בהתאם להחלטות שביצענו לאחר ניתוח המידע הסרנו גם את טבלת DocPat מפני שהמידע בטבלה זאת אינו תורם לנו (ניתן להגיע אליו מניתוח פשוט של המידע מטבלת הפגישות והניתוחים)
+```sql
+-- TABLES DROPPING
+DROP TABLE DocPat;
+DROP TABLE Doctors;
+DROP TABLE Patients;
+```
+
+לאחר מחיקת האילוצים והקישור לטבלאות שנמחקו, יצרנו את האילוצים המצאימים לטבלאות המאוחדות שלנו שטיפלנו בהן קודם לכן.
+
+```sql
+-- ADDING CONSTRAINTS AGAIN
+ALTER TABLE Appointment
+ADD CONSTRAINT fk_patient
+FOREIGN KEY (PATIENT_ID)
+REFERENCES PATIENT1 (PATIENTID);
+
+ALTER TABLE Appointment
+ADD CONSTRAINT fk_doctor
+FOREIGN KEY (DOCTOR_ID)
+REFERENCES DOCTOR1 (DOCTORID);
+
+ALTER TABLE MedicalRecord
+ADD CONSTRAINT fk_patient1
+FOREIGN KEY (PATIENT_ID)
+REFERENCES PATIENT1 (PATIENTID);
+
+ALTER TABLE Billing
+ADD CONSTRAINT fk_patient2
+FOREIGN KEY (PATIENT_ID)
+REFERENCES PATIENT1 (PATIENTID);
+```
+
+
+החזרנו את שמות הטבלאות לשמות המקוריים 
+```sql
+-- RENAME BACK:
+rename Doctor1 to Doctor;
+rename Nurse1 to Nurse;
+rename Patient1 to Patient;
+rename Medicine1 to Medicine;
+rename Surgery1 to Surgery;
+rename Surgery_Room1 to Surgery_Room;
+rename Used_In1 to Used_In;
+```
+
 
