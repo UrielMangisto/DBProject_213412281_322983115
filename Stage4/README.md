@@ -22,7 +22,6 @@
 
 ![image]![image](https://github.com/user-attachments/assets/ee1ac701-3dc0-43d1-9e64-5a6e285cfecb)
 
-)
 
 ### ERD של המערכת המשולבת 
 
