@@ -310,20 +310,21 @@ FROM
 
 ### שאילתות מהמבט `SurgeryOverview`
 
-**שאילתא 1: מספר הניתוחים לפי סוג בחודש האחרון**
+**שאילתא 1: מספר הניתוחים לפי סוג בשנה האחרונה**
 
 **תיאור:**
-מטרת השאילתא היא לנתח את מספר הניתוחים לפי סוגם שבוצעו בחודש האחרון.
+מטרת השאילתא היא לנתח את מספר הניתוחים לפי סוגם שבוצעו בשנה האחרונה.
 
 **קוד השאילתא:**
 ```sql
 SELECT SurgeryType, COUNT(*) AS SurgeryCount
 FROM SurgeryOverview
-WHERE SurgeryDate >= ADD_MONTHS(SYSDATE, -1)
+WHERE SurgeryDate >= ADD_MONTHS(SYSDATE, -12)
 GROUP BY SurgeryType
 ORDER BY SurgeryCount DESC;
 ```
-![image](https://github.com/user-attachments/assets/97285de5-bbad-454a-a2af-ba9804c33746)
+![image](https://github.com/user-attachments/assets/d92d74d1-32fe-49fc-a2b7-529c426f28a4)
+
 
 **שאילתא 2: זיהוי רופאים שמבצעים מספר גבוה של ניתוחים**
 
